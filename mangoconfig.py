@@ -4,5 +4,5 @@
 def assign():
     green = ""
     return green
-def configure_text():
-    print("Mango Configure Test Successful.")
+def config_test():
+    print("Mango Configure Response Successful.")
