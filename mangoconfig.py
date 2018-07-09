@@ -5,4 +5,4 @@ def assign():
     green = ""
     return green
 def config_test():
-    print("Mango Configure Response Successful.")
+    print("Mango Config Response Successful.")
