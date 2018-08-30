@@ -9,18 +9,25 @@ Let's say your code is:
 import foo
 foo(x)
 ```
-Now, 'foo' doesn't come with python, but is very clearly vitally important to your code. If you need to run this on a machine that isn't yours, you wouldn't be able to, as you'd need sudo / administrator privelages to install 'foo'. With Mango, all you need is your script, Mango, and the raw foo.whl file you can download at home. If you run Mango now, it will append this to the top of your code:
+Now, 'foo' doesn't come with python, but is very clearly vitally important to your code. If you need to run this on a machine that isn't yours, you wouldn't be able to, as you'd need sudo / administrator privelages to install 'foo'. With Mango, all you need is your script, Mango, and the raw foo.whl file you can download on your own PC. First, Mango will append this to the top of your script:
 ```
 import sys
 sys.path.insert(0, "path_to_modules")
 ```
-Great, now your code knows where to look. However, that _not_ looking for .whl files, it's looking for .py files. Mango will then unzip the .whl file, using something like:
+Making it:
+```
+import sys
+sys.path.insert(0, "path_to_modules")
+import foo
+foo(x)
+```
+Great, now your code knows where to look. However, it's  _not_ looking for .whl files, it's looking for .py files. Mango will then unzip the .whl file, using something like:
 ```
 unzip foo.whl
 ```
 Or, on Windows (subject to change, powershell is difficult): 
 ```
-Expand-Archive foo.whl -DestinationPath path_to_modules
+powershell.exe Expand-Archive foo.whl -DestinationPath path_to_modules
 ```
 In essence, Mango automates the process of local module installation. Mango can also launch your Python scripts for you, and keep all their files and tangents organized in one neat folder. 
 
