@@ -27,7 +27,11 @@ unzip foo.whl
 ```
 Or, on Windows (subject to change, powershell is difficult): 
 ```
-powershell.exe Expand-Archive foo.whl -DestinationPath path_to_modules
+$whl = Read-Host -Prompt 'Enter absolute path for .whl file'
+Set-Variable -Name "whlzip" -Value ($whl + '.zip')
+Rename-Item -path $whl -NewName $whlzip
+Expand-Archive -Force $whlzip -DestinationPath "output"
+Rename-Item -path $whlzip -NewName $whl
 ```
 In essence, Mango automates the process of local module installation. Mango can also launch your Python scripts for you, and keep all their files and tangents organized in one neat folder. 
 
