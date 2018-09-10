@@ -158,7 +158,7 @@ def setup(use_title,reinstall,coremod):
     if linux == False:
         print("Creating Unzip Subprocess...")
         with open('unizp.bat', 'a', newline='') as uw:
-            uw.write("@@:: Script Credit - https://stackoverflow.com/questions/2609985/how-to-run-a-powershell-script-within-a-windows-batch-file\n")
+            uw.write("@@:: Powershell script in batch file credit - https://stackoverflow.com/questions/2609985/how-to-run-a-powershell-script-within-a-windows-batch-file\n")
             uw.write("@@setlocal\n")
             uw.write("@@set POWERSHELL_BAT_ARGS=%*\n")
             uw.write('@@if defined POWERSHELL_BAT_ARGS set POWERSHELL_BAT_ARGS=%POWERSHELL_BAT_ARGS:"=\"%\n')
