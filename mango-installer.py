@@ -3,7 +3,7 @@
 '''
 title='''
   __  __                         
- |  \/  |                        
+ |  \/  |Development 0910180001                    
  | \  / | __ _ _ __   __ _  ___  
  | |\/| |/ _` | '_ \ / _` |/ _ \ 
  | |  | | (_| | | | | (_| | (_) |
@@ -11,6 +11,31 @@ title='''
   ______________________/ | V.0
  |________________________| ALP
 '''
+'''
+Hello User! Welcome to the Mango source code. Credits can be found either below or embedded with the code they are crediting.
+Thanks for using Mango! 
+'''
+import time
+def clrs():
+    import platform
+    import os
+    if not "Windows" in (platform.platform()):
+        os.system("clear")
+        os.system("printf '\e[8;34;34t'")
+    else:
+        os.system("cls")
+        os.system("@mode con cols=34 lines=34")
+def clrslo():
+    import platform
+    import os
+    if not "Windows" in (platform.platform()):
+        os.system("clear")
+        os.system("printf '\e[8;34;34t'")
+        print(title)
+    else:
+        os.system("cls")
+        os.system("@mode con cols=34 lines=34")
+        print(title)
 def setup(use_title,reinstall,coremod):
     print("Determining OS...")
     if "Windows" in (platform.platform()):
@@ -59,18 +84,21 @@ def setup(use_title,reinstall,coremod):
         except:
             print("Failed to connect.")
             exit()
-        with open('mangocore.py', 'w') as core:
+        with open('mangocore.py', 'w', newline='') as core:
             if coremod == True:
                 print("Core modification allowed")
-                core.write(master)
-                core.close()
-                time.sleep(1)
                 if linux == True:
+                    core.write(master)
+                    core.close()
+                    time.sleep(1)
                     os.system("sed -i '1i##MOD##' mangocore.py")
                 if linux == False:
-                    os.system("echo '##MOD##' >> coretemp.txt")
-                    os.system("move /y coretemp.txt mangocore.py")
-                    os.remove("coretemp.txt")
+                    core.write("'##MOD##'\n")
+                    core.close()
+                    time.sleep(1)
+                    with open('mangocore.py', 'a', newline='') as corex:
+                        corex.write(master)
+                        corex.close()
                     core.close()
             else:
                 core.write(master)
@@ -120,20 +148,64 @@ def setup(use_title,reinstall,coremod):
     if linux == True:
         os.chdir('mangotools')
         os.system("bash shelltools_pause.sh")
-        os.chdir('..')
     else:
-        os.system("pause")
+        pass
     if reinstall == True:
         print("Module reinstall finished.")
     else:
         print("Module install finished.")
-    print("Setting up launcher...")
-    exit()
+    print("Finalizing...")
+    if linux == False:
+        print("Creating Unzip Subprocess...")
+        with open('unizp.bat', 'a', newline='') as uw:
+            uw.write("@@:: Script Credit - https://stackoverflow.com/questions/2609985/how-to-run-a-powershell-script-within-a-windows-batch-file\n")
+            uw.write("@@setlocal\n")
+            uw.write("@@set POWERSHELL_BAT_ARGS=%*\n")
+            uw.write('@@if defined POWERSHELL_BAT_ARGS set POWERSHELL_BAT_ARGS=%POWERSHELL_BAT_ARGS:"=\"%\n')
+            uw.write("@@PowerShell -Command Invoke-Expression $('$args=@(^&{$args} %POWERSHELL_BAT_ARGS%);'+[String]::Join([char]10,$((Get-Content '%~f0') -notmatch '^^@@'))) & goto :EOF\n")
+            uw.write("$whl = Read-Host -Prompt 'Enter absolute path for .whl file'\n")
+            uw.write('Set-Variable -Name "whlzip" -Value ($whl + ".zip")\n')
+            uw.write('Rename-Item -path $whl -NewName $whlzip\n')
+            uw.write('Expand-Archive -Force $whlzip -DestinationPath "output"\n')
+            uw.write('Rename-Item -path $whlzip -NewName $whl\n')
+            uw.close()
+        print("Done.")
+    os.chdir('..')
+    clrslo()
+    print("Mango has finished installing.")
+    print("1} Launch dedicated script")
+    print("2} Add Mango to $PATH")
+    print("3} Exit without launching")
+    launchin = input("")
+    if launchin == "1":
+        print("Launching...")
+        try:
+            os.startfile("mango.py")
+        except:
+            pass
+        exit()
+    if launchin == "2":
+        print("This feature is currently in heavy development.")
+        print("Come back later!")
+        print("Mango will now close.")
+        time.sleep(5)
+        exit()
+    else:
+        print("Exiting...")
+        time.sleep(2)
+        exit()
 def install_set():
     global linux_set
     global core_set_mod
+    clrslo()
     print("")
-    print("1} Allow core modification")
+    try:
+        if core_set_mod == True:
+            print("1} Allow core modification *")
+        else:
+            print("1} Allow core modification")
+    except:
+        print("1} Allow core modification")
     print("2} Disable config dependancy")
     print("8} Ready to install")
     print("9} Discard changes")
@@ -141,6 +213,7 @@ def install_set():
     if x == "1":
         core_set_mod = True
         print("Core modification allowed.")
+        time.sleep(1)
         install_set()
     if x == "8":
         use_title = True
@@ -159,12 +232,25 @@ def install_set():
         reinstall = False
         coremod = False
         setup(use_title,reinstall,coremod)
+    else:
+        install_set()
 import os
 import time
+import urllib.request
+try:
+    test = urllib.request("https://www.google.com")
+    response = urllib.request.urlopen(test)
+except:
+    print("Failed to establish connection.")
+    print("Mango may crash during setup.")
 reinstall = False
-os.system("clear")
-os.system("printf '\e[8;34;34t'")
 import platform
+if not "Windows" in (platform.platform()):
+    os.system("clear")
+    os.system("printf '\e[8;34;34t'")
+else:
+    os.system("cls")
+    os.system("@mode con cols=34 lines=34")
 if not os.path.exists("mangotools"):
     print(title)
     print("----------------------------------")
@@ -181,6 +267,7 @@ if not os.path.exists("mangotools"):
         install_set()
     else:
         print("Exiting...")
+        time.sleep(0.5)
         exit()
 else:
     print(title)
@@ -203,7 +290,7 @@ else:
         use_title = False
         reinstall = True
         coremod = False
-        setup(use_title,reinstall,coremod)
+        install_set()
     else:
         print("Exiting...")
         exit()
