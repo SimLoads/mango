@@ -1,4 +1,3 @@
-'##MOD##'
 ###MANGO-CORE-0.0.0.2###
 '''
 '''
@@ -7,11 +6,12 @@ def core_test():
 def core_unzip(linux,verbose):
     # Yes I know, I could've used a function for the failed import thing, but no.
     # Needlessly complex code makes it harder to clone... right?
+    import time
     if linux == True:
         print("Linux mode still in development.")
         print("Please try again soon.")
-    time.sleep(1)
-    exit()
+        time.sleep(1)
+        exit()
     try:
         import subprocess
         if verbose == True:
@@ -69,12 +69,26 @@ def core_unzip(linux,verbose):
                 print("No directory change needed.")
             pass
         movedir = (re.escape(os.getcwd()) + "\\\\output_final")
-        os.chdir("mangotools")
+        try:
+            os.chdir("mangotools")
+        except:
+            if "mangotools" in os.getcwd():
+                pass
+            else:
+                print("Failed to find mangotools. [0cMg]")
+                time.sleep(1)
+                exit()
         currentdir = os.getcwd()
         subdir = (currentdir)
         subdir = re.escape(subdir)
         subdir = (subdir + "\\\\unzip.bat")
-        unzip = subprocess.Popen(subdir, stdout=subprocess.PIPE)
+        try:
+            unzip = subprocess.Popen(subdir, stdout=subprocess.PIPE)
+        except:
+            print("Unable to find unzip.bat [0cMb]")
+            print("Ensure it is in mangotools.")
+            time.sleep(1)
+            exit()
         unzip.communicate()
         if verbose == True:
             print("Unzip complete.")
