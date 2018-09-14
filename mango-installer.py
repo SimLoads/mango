@@ -16,6 +16,71 @@ Hello User! Welcome to the Mango source code. Credits can be found either below 
 Thanks for using Mango! 
 '''
 import time
+def rai_prep(coremod,linux):
+    print("Requesting Mangocore from github...")
+    try:
+        update = urllib.request.Request('https://raw.githubusercontent.com/SimLoads/mango/mango-tools/mango-core.py')
+        response = urllib.request.urlopen(update)
+        newcode = response.read()
+        master = newcode.decode()
+    except:
+        print("Failed to connect.")
+        print("Please connect to the\n internet and try again.")
+        time.sleep(5)
+        exit()
+    with open('mangocore.py', 'w', newline='') as core:
+        if coremod == True:
+            print("Core modification allowed")
+            if linux == True:
+                core.write(master)
+                core.close()
+                time.sleep(1)
+                os.system("sed -i '1i##MOD##' mangocore.py")
+            if linux == False:
+                core.write("'##MOD##'\n")
+                core.close()
+                time.sleep(1)
+                with open('mangocore.py', 'a', newline='') as corex:
+                    corex.write(master)
+                    corex.close()
+                core.close()
+        else:
+            core.write(master)
+            core.close()
+    print("Created mangocore.py")
+    if linux == False:
+        print("Creating unzip subprocess...")
+        with open('unzip.bat', 'a') as uw:
+            uw.write("@@:: Script Credit - https://stackoverflow.com/questions/2609985/how-to-run-a-powershell-script-within-a-windows-batch-file\n")
+            uw.write("@@setlocal\n")
+            uw.write("@@set POWERSHELL_BAT_ARGS=%*\n")
+            uw.write('@@if defined POWERSHELL_BAT_ARGS set POWERSHELL_BAT_ARGS=%POWERSHELL_BAT_ARGS:"=\"%\n')
+            uw.write("@@PowerShell -Command Invoke-Expression $('$args=@(^&{$args} %POWERSHELL_BAT_ARGS%);'+[String]::Join([char]10,$((Get-Content '%~f0') -notmatch '^^@@'))) & goto :EOF\n")
+            uw.write("$whl = Read-Host -Prompt 'Enter absolute path for .whl file'\n")
+            uw.write('Set-Variable -Name "whlzip" -Value ($whl + ".zip")\n')
+            uw.write('Rename-Item -path $whl -NewName $whlzip\n')
+            uw.write('Expand-Archive -Force $whlzip -DestinationPath "output_temp"\n')
+            uw.write('Rename-Item -path $whlzip -NewName $whl\n')
+            uw.close()
+        print("Done.")
+    print("Creating dedicated script...")
+    try:
+        update = urllib.request.Request('https://raw.githubusercontent.com/SimLoads/mango/mango-tools/mangomanual')
+        response = urllib.request.urlopen(update)
+        newcode = response.read()
+        master = newcode.decode()
+    except:
+        print("Failed to connect.")
+        print("Please connect to the\n internet and try again.")
+        time.sleep(5)
+        exit()
+    with open('mangomanual.py', 'w', newline='') as tool:
+        tool.write(master)
+        tool.close()
+    print("Script created.")
+    print("Launching...")
+    os.startfile("mangomanual.py")
+    exit()
 def clrs():
     import platform
     import os
@@ -36,7 +101,9 @@ def clrslo():
         os.system("cls")
         os.system("@mode con cols=34 lines=34")
         print(title)
-def setup(use_title,reinstall,coremod):
+def setup(use_title,reinstall,coremod,rai):
+    if rai == True:
+        print("Attempting RAI...")
     print("Determining OS...")
     if "Windows" in (platform.platform()):
         linux = False
@@ -57,11 +124,15 @@ def setup(use_title,reinstall,coremod):
     print("Shutil Import")
     import urllib.request
     print("Urllib.request Import")
-    if not os.path.exists("mangotools"):
-        os.mkdir("mangotools")
-        print("Created mangotools")
-    os.chdir("mangotools")
-    print("Changed Directory")
+    if rai == False:
+        if not os.path.exists("mangotools"):
+            os.mkdir("mangotools")
+            print("Created mangotools")
+    else:
+        print("Skipped directory creation")
+    if rai == False:
+        os.chdir("mangotools")
+        print("Changed Directory")
     if linux == True:
         print("Detected Linux usage...")
         print("Preparing...")
@@ -71,9 +142,14 @@ def setup(use_title,reinstall,coremod):
             sh.close()
         os.system("chmod u+x shelltools_pause.sh")
         Linux = True
-    if not os.path.exists("__init__.py"):
-        os.system("echo '' >> __init__.py")
-        print("Created __init__.py")
+    if rai == False:
+        if not os.path.exists("__init__.py"):
+            os.system("echo '' >> __init__.py")
+            print("Created __init__.py")
+    else:
+        print("Skipped module prep")
+        print("A seperate script will be created\n to use Mango.")
+        rai_prep(coremod,linux)
     if not os.path.exists("mangocore"):
         print("Requesting tools from github...")
         try:
@@ -83,6 +159,8 @@ def setup(use_title,reinstall,coremod):
             master = newcode.decode()
         except:
             print("Failed to connect.")
+            print("Please connect to the\n internet and try again.")
+            time.sleep(5)
             exit()
         with open('mangocore.py', 'w', newline='') as core:
             if coremod == True:
@@ -161,7 +239,7 @@ def setup(use_title,reinstall,coremod):
             os.chdir('mangotools')
         except:
             pass
-        with open('unizp.bat', 'a', newline='') as uw:
+        with open('unizp.bat', 'a') as uw:
             uw.write("@@:: Script Credit - https://stackoverflow.com/questions/2609985/how-to-run-a-powershell-script-within-a-windows-batch-file\n")
             uw.write("@@setlocal\n")
             uw.write("@@set POWERSHELL_BAT_ARGS=%*\n")
@@ -170,7 +248,7 @@ def setup(use_title,reinstall,coremod):
             uw.write("$whl = Read-Host -Prompt 'Enter absolute path for .whl file'\n")
             uw.write('Set-Variable -Name "whlzip" -Value ($whl + ".zip")\n')
             uw.write('Rename-Item -path $whl -NewName $whlzip\n')
-            uw.write('Expand-Archive -Force $whlzip -DestinationPath "output"\n')
+            uw.write('Expand-Archive -Force $whlzip -DestinationPath "output_temp"\n')
             uw.write('Rename-Item -path $whlzip -NewName $whl\n')
             uw.close()
         print("Done.")
@@ -201,6 +279,7 @@ def setup(use_title,reinstall,coremod):
 def install_set():
     global linux_set
     global core_set_mod
+    global core_rai_mod
     clrslo()
     print("")
     try:
@@ -210,15 +289,40 @@ def install_set():
             print("1} Allow core modification")
     except:
         print("1} Allow core modification")
-    print("2} Disable config dependancy")
+    try:
+        if core_rai_mod == True:
+            print("2} Restricted Access Install *")
+        else:
+            print("2} Restricted Access Install")
+    except:
+        print("2} Restricted Access Install")
     print("8} Ready to install")
     print("9} Discard changes")
     x = input("")
     if x == "1":
-        core_set_mod = True
-        print("Core modification allowed.")
-        time.sleep(1)
-        install_set()
+        try:
+            if core_set_mod == True:
+                core_set_mod = False
+                print("Core modification disallowed.")
+                time.sleep(1)
+                install_set()
+        except:    
+            core_set_mod = True
+            print("Core modification allowed.")
+            time.sleep(1)
+            install_set()
+    if x == "2":
+        try:
+            if core_rai_mod == True:
+                core_rai_mod = False
+                print("RAI Disabled.")
+                time.sleep(1)
+                install_set()
+        except:
+            core_rai_mod = True
+            print("RAI Enabled.")
+            time.sleep(1)
+            install_set()
     if x == "8":
         use_title = True
         reinstall = False
@@ -229,7 +333,14 @@ def install_set():
                 coremod = False
         except:
             coremod = False
-        setup(use_title,reinstall,coremod)
+        try:
+            if core_rai_mod == True:
+                rai = True
+            if core_rai_mod == False:
+                rai = False
+        except:
+            rai = False
+        setup(use_title,reinstall,coremod,rai)
     if x == "9":
         print("Installing with default settings...")
         use_title = False
@@ -241,12 +352,6 @@ def install_set():
 import os
 import time
 import urllib.request
-try:
-    test = urllib.request("https://www.google.com")
-    response = urllib.request.urlopen(test)
-except:
-    print("Failed to establish connection.")
-    print("Mango may crash during setup.")
 reinstall = False
 import platform
 if not "Windows" in (platform.platform()):
@@ -266,7 +371,8 @@ if not os.path.exists("mangotools"):
     if choice == "1":
         use_title = True
         coremod = False
-        setup(use_title,reinstall,coremod)
+        rai = False
+        setup(use_title,reinstall,coremod,rai)
     if choice == "2":
         install_set()
     else:
@@ -291,10 +397,8 @@ else:
             os.system("rmdir /S /Q mangotools")
         else:
             os.system("rm -rf mangotools")
-        use_title = False
-        reinstall = True
-        coremod = False
         install_set()
     else:
         print("Exiting...")
+        time.sleep(0.5)
         exit()
