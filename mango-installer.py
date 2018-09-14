@@ -239,7 +239,7 @@ def setup(use_title,reinstall,coremod,rai):
             os.chdir('mangotools')
         except:
             pass
-        with open('unizp.bat', 'a') as uw:
+        with open('unzip.bat', 'a') as uw:
             uw.write("@@:: Script Credit - https://stackoverflow.com/questions/2609985/how-to-run-a-powershell-script-within-a-windows-batch-file\n")
             uw.write("@@setlocal\n")
             uw.write("@@set POWERSHELL_BAT_ARGS=%*\n")
