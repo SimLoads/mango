@@ -1,4 +1,4 @@
-###MANGO-CORE-0.0.0.2###
+###MANGO-CORE-0.0.0.4###
 '''
 '''
 def core_test():
@@ -79,14 +79,17 @@ def core_unzip(linux,verbose):
                 time.sleep(1)
                 exit()
         currentdir = os.getcwd()
+        if ' ' in currentdir:
+            print("Directory name contains\nillegal characters. [0cIc]")
+            time.sleep(1)
+            exit()
         subdir = (currentdir)
         subdir = re.escape(subdir)
         subdir = (subdir + "\\\\unzip.bat")
         try:
             unzip = subprocess.Popen(subdir, stdout=subprocess.PIPE)
         except:
-            print("Unable to find unzip.bat [0cMb]")
-            print("Ensure it is in mangotools.")
+            print("Failed to find unzip.bat. [0cUf]")
             time.sleep(1)
             exit()
         unzip.communicate()
@@ -141,7 +144,38 @@ def core_unzip(linux,verbose):
             time.sleep(1)
             exit()
 def core_selftest(linux):
-    print("")
+    import time
+    import os
+    with open('mangocore.py', 'r') as core:
+        core_content = core.read()
+        core_mod_query = core_content.splitlines()
+        core.close()
+    if ("'##MOD##'") in core_mod_query[0]:
+        print("Core self test disabled.")
+        return ("")
+    import urllib.request
+    try:
+        update = urllib.request.Request('https://raw.githubusercontent.com/SimLoads/mango/mango-tools/mango-core.py')
+        response = urllib.request.urlopen(update)
+        newcode = response.read()
+        master = newcode.decode()
+    except:
+        print("Failed to connect.")
+        print("Self test failed. [2cSt]")
+        return ("")
+    if not master == core_content:
+        print("Modification detected!")
+        print("Resetting Core...")
+        with open('mangocore.py', 'w', newline='') as recore:
+            recore.write(master)
+            recore.close()
+            print("Core reset.")
+            print("Please restart.")
+            time.sleep(1)
+            exit()
+    else:
+        print("Core self test complete.")
+        return ("")
 def core_codeprepare(codedir,verbose,linux):
     import os
     import sys
