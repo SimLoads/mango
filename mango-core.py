@@ -146,6 +146,7 @@ def core_unzip(linux,verbose):
 def core_selftest(linux):
     import time
     import os
+    from difflib import SequenceMatcher
     with open('mangocore.py', 'r') as core:
         core_content = core.read()
         core_mod_query = core_content.splitlines()
@@ -163,7 +164,8 @@ def core_selftest(linux):
         print("Failed to connect.")
         print("Self test failed. [2cSt]")
         return ("")
-    if not master == core_content:
+    similar = SequenceMatcher(None, master, core_content).ratio()
+    if similar < 0.92:
         print("Modification detected!")
         print("Resetting Core...")
         with open('mangocore.py', 'w', newline='') as recore:
