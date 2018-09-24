@@ -165,7 +165,7 @@ def core_selftest(linux):
         print("Self test failed. [2cSt]")
         return ("")
     similar = SequenceMatcher(None, master, core_content).ratio()
-    if similar < 0.93:
+    if similar < 0.946:
         print("Modification detected!")
         print("Resetting Core...")
         with open('mangocore.py', 'w', newline='') as recore:
