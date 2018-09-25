@@ -7,7 +7,7 @@ import shutil
 import glob
 title='''
   __  __                         
- |  \/  |Development 0925180026                    
+ |  \/  |Development 0925180021                    
  | \  / | __ _ _ __   __ _  ___  
  | |\/| |/ _` | '_ \ / _` |/ _ \ 
  | |  | | (_| | | | | (_| | (_) |
@@ -15,12 +15,6 @@ title='''
   ______________________/ | V.0
  |________________________| ALP
 '''
-if os.path.exists('mango-installer.py'):
-    try:
-        time.sleep(1)
-        os.remove('mango-installer.py')
-    except:
-        pass
 def clrslo():
     import platform
     import os
@@ -89,16 +83,90 @@ if mch == "1":
         if "mangotools" in os.getcwd():
             os.chdir('..')
         try:
-            shutil.copytree("output_final", path_copy)
+            os.chdir("output_final")
+        except:
+            print("Failed to find output file. [1aFo]")
+            time.sleep(1)
+            exit()
+        out_dir_current = os.getcwd()
+        os.chdir(path_copy)
+        if os.path.exists("output_temp"):
+            print("Output_temp already exists.")
+            print("Will be overwritten.")
+            try:
+                os.system("rmdir /S /Q output_temp")
+            except:
+                if os.path.exists("output_temp"):
+                    print("Failed to delete.")
+                    print("Please delete manually\nand retry.")
+                    time.sleep(1)
+                    exit()
+                pass
+        try:
+            shutil.copytree(out_dir_current, (os.getcwd() + "\\output_temp"))
         except:
             print("Failed to copy output [1aFc]")
             time.sleep(1)
             exit()
         print("Copy successful.")
+        os.chdir('output_temp')
+        in_output = glob.glob("*")
+        if verbose == True:
+            print("Scanned for files...")
+        if "dist-info" in in_output[0]:
+            name = in_output[1]
+        else:
+            name = in_output[0]
+        print("Found package: " + name)
+        os.chdir('..')
+        try:
+            shutil.copytree(("output_temp//" + name), ((os.getcwd()) + "\\" + name))
+        except:
+            try:
+                os.system("rmdir /S /Q " + name)
+                shutil.copytree(("output_temp//" + name), ((os.getcwd()) + "\\" + name))
+            except:
+                print("Failed to move package. [1aFm]")
+                print("Please remove '" + name + "' manually.")
+                time.sleep(1)
+                exit()
         print("Job successful.")
+        pkgpointers = glob.glob("*.mgs")
+        pkgnm = ("pkg" + str((len(pkgpointers) + 1)) + ".mgs")
+        with open(pkgnm, 'w') as pointer:
+            pointer.write(((os.getcwd()) + "\\" + name))
+            pointer.close()
+        print("Cleaning up...")
+        try:
+            os.system("rmdir /S /Q output_temp")
+        except:
+            pass
         exit()
 if mch == "2":
-    codedir = os.getcwd()
+    codedir = input("Enter absolute path of code:")
+    cu_dr = os.getcwd()
+    try:
+        os.chdir(codedir)
+    except:
+        print("Invalid directory")
+        time.sleep(1)
+        exit()
+    pkgslst = glob.glob("*.mgs")
+    if len(pkgslst) == 0:
+        print("No .whl unpack found. [2aNw]")
+        print("Ensure unpack is in same folder as code")
+        time.sleep(1)
+        exit()
+    if len(pkgslst) == 1:
+        with open(pkgslst[0], 'r') as pointer:
+            source = pointer.read()
+            pointer.close()        
+    if not os.path.exists(source):
+        print("No .whl unpack found. [2aNw]")
+        print("Ensure unpack is in same folder as code")
+        time.sleep(1)
+        exit()
+    os.chdir(cu_dr)
     verbose = False
     mangocore.core_codeprepare(codedir,verbose,linux)
 else:
