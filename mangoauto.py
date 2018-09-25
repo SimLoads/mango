@@ -1,4 +1,4 @@
-###MANGO-AUTO-0.0.0.2####
+###MANGO-AUTO-0.0.0.4####
 import os
 import sys
 import time
@@ -7,7 +7,7 @@ import shutil
 import glob
 title='''
   __  __                         
- |  \/  |Development 0925180021                    
+ |  \/  |Development 0925180026                    
  | \  / | __ _ _ __   __ _  ___  
  | |\/| |/ _` | '_ \ / _` |/ _ \ 
  | |  | | (_| | | | | (_| | (_) |
@@ -137,10 +137,16 @@ if mch == "1":
             pointer.write(((os.getcwd()) + "\\" + name))
             pointer.close()
         print("Cleaning up...")
-        try:
-            os.system("rmdir /S /Q output_temp")
-        except:
-            pass
+        if os.path.exists("output_temp"):
+            try:
+                os.system("rmdir /S /Q output_temp")
+            except:
+                pass
+        if os.path.exists("output_final"):
+            try:
+                os.system("rmdir /S /Q output_final")
+            except:
+                pass
         exit()
 if mch == "2":
     codedir = input("Enter absolute path of code:")
