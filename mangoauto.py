@@ -7,7 +7,7 @@ import shutil
 import glob
 title='''
   __  __                         
- |  \/  |Development 0925180021                    
+ |  \/  |Development 0925180026                    
  | \  / | __ _ _ __   __ _  ___  
  | |\/| |/ _` | '_ \ / _` |/ _ \ 
  | |  | | (_| | | | | (_| | (_) |
@@ -15,6 +15,12 @@ title='''
   ______________________/ | V.0
  |________________________| ALP
 '''
+if os.path.exists('mango-installer.py'):
+    try:
+        time.sleep(1)
+        os.remove('mango-installer.py')
+    except:
+        pass
 def clrslo():
     import platform
     import os
