@@ -1,9 +1,9 @@
-###MANGO-INSTALLER-0.0.0.0-DEVELOPMENT###
+###MANGO-INSTALLER-0.0.0.2###
 '''
 '''
 title='''
   __  __                         
- |  \/  |Development 0910180001                    
+ |  \/  |Development 0924180016                    
  | \  / | __ _ _ __   __ _  ___  
  | |\/| |/ _` | '_ \ / _` |/ _ \ 
  | |  | | (_| | | | | (_| | (_) |
@@ -25,7 +25,7 @@ def rai_prep(coremod,linux):
         master = newcode.decode()
     except:
         print("Failed to connect.")
-        print("Please connect to the\n internet and try again.")
+        print("Please connect to the\ninternet and try again.")
         time.sleep(5)
         exit()
     with open('mangocore.py', 'w', newline='') as core:
@@ -71,7 +71,7 @@ def rai_prep(coremod,linux):
         master = newcode.decode()
     except:
         print("Failed to connect.")
-        print("Please connect to the\n internet and try again.")
+        print("Please connect to the\ninternet and try again.")
         time.sleep(5)
         exit()
     with open('mangomanual.py', 'w', newline='') as tool:
@@ -148,7 +148,7 @@ def setup(use_title,reinstall,coremod,rai):
             print("Created __init__.py")
     else:
         print("Skipped module prep")
-        print("A seperate script will be created\n to use Mango.")
+        print("A seperate script will be created\nto use Mango.")
         rai_prep(coremod,linux)
     if not os.path.exists("mangocore"):
         print("Requesting tools from github...")
@@ -159,8 +159,8 @@ def setup(use_title,reinstall,coremod,rai):
             master = newcode.decode()
         except:
             print("Failed to connect.")
-            print("Please connect to the\n internet and try again.")
-            time.sleep(5)
+            print("Please connect to the\ninternet and try again.")
+            time.sleep(1)
             exit()
         with open('mangocore.py', 'w', newline='') as core:
             if coremod == True:
@@ -189,6 +189,7 @@ def setup(use_title,reinstall,coremod,rai):
             master_C = newcode_C.decode()
         except:
             print("Failed to connect.")
+            time.sleep(1)
             exit()
         with open('mangoconfig.py', 'w') as config:
             config.write(master_C)
@@ -202,6 +203,7 @@ def setup(use_title,reinstall,coremod,rai):
     except:
         print("Failed import!")
         print("Restart installation.")
+        time.sleep(1)
         exit()
     print("Imported Mango Core")
     pause = True
@@ -210,6 +212,7 @@ def setup(use_title,reinstall,coremod,rai):
         mangocore.core_test()
     except:
         print("Test failed. Restart installation.")
+        time.sleep(1)
         exit()
     print("Testing Mango Configure...")
     try:
@@ -217,11 +220,13 @@ def setup(use_title,reinstall,coremod,rai):
     except:
         print("Failed import!")
         print("Restart installation.")
+        time.sleep(1)
         exit()
     try:
         mangoconfig.config_test()
     except:
         print("Test failed. Restart installation.")
+        time.sleep(1)
         exit()
     if linux == True:
         os.chdir('mangotools')
@@ -253,6 +258,19 @@ def setup(use_title,reinstall,coremod,rai):
             uw.close()
         print("Done.")
     os.chdir('..')
+    print("Creating mango.py...")
+    try:
+        update_C = urllib.request.Request('https://raw.githubusercontent.com/SimLoads/mango/mango-tools/mangoauto.py')
+        response_C = urllib.request.urlopen(update_C)
+        newcode_C = response_C.read()
+        master_C = newcode_C.decode()
+    except:
+        print("Failed to connect.")
+        time.sleep(1)
+        exit()
+    with open('mango.py', 'w') as config:
+        config.write(master_C)
+        config.close()
     clrslo()
     print("Mango has finished installing.")
     print("1} Launch dedicated script")
@@ -263,6 +281,7 @@ def setup(use_title,reinstall,coremod,rai):
         print("Launching...")
         try:
             os.startfile("mango.py")
+            exit()
         except:
             pass
         exit()
