@@ -173,7 +173,7 @@ def core_selftest(linux):
             recore.close()
             print("Core reset.")
             print("Please restart.")
-            time.sleep(1)
+            input()
             exit()
     else:
         print("Core self test complete.")
