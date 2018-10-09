@@ -1,4 +1,4 @@
-###MANGO-CORE-0.0.0.4###
+###MANGO-CORE-0.0.0.6###
 '''
 '''
 def core_test():
@@ -16,6 +16,15 @@ def core_unzip(linux,verbose):
         import subprocess
         if verbose == True:
             print("Subprocess import successful")
+    except:
+        print("Failed import.")
+        print("Exiting...")
+        time.sleep(1)
+        exit()
+    try:
+        import zipfile
+        if verbose == True:
+            print("Zipfile import successful")
     except:
         print("Failed import.")
         print("Exiting...")
@@ -83,16 +92,64 @@ def core_unzip(linux,verbose):
             print("Directory name contains\nillegal characters. [0cIc]")
             time.sleep(1)
             exit()
-        subdir = (currentdir)
-        subdir = re.escape(subdir)
-        subdir = (subdir + "\\\\unzip.bat")
-        try:
-            unzip = subprocess.Popen(subdir, stdout=subprocess.PIPE)
-        except:
-            print("Failed to find unzip.bat. [0cUf]")
-            time.sleep(1)
-            exit()
-        unzip.communicate()
+        while True:
+            whlsource = input("Enter absolute path containing .whl: ")
+            if len(whlsource) == 0:
+                print("Invalid Directory")
+                continue
+            try:
+                os.chdir(whlsource)
+                os.chdir(currentdir)
+            except:
+                print("Invalid Directory")
+                continue
+            os.chdir(whlsource)
+            wheels = glob.glob("*.whl")
+            if len(wheels) == 0:
+                print("No wheels found.")
+                print("Invalid Directory.")
+                continue
+            if len(wheels) > 1:
+                print("Multiple wheels found!")
+                for letter,number in enumerate(wheels):
+                    letter = letter + 1
+                    letter = str(letter)
+                    print(letter + ":", number)
+                chwhl = input("Select wheel: ")
+                try:
+                    unzipwhl = wheels[(int(chwhl) - 1)]
+                except:
+                    print("Invalid choice")
+                    continue
+            if len(wheels) == 1:
+                unzipwhl = wheels[0]
+            try:
+                os.rename(unzipwhl, (unzipwhl + ".zip"))
+            except:
+                print("Failed to rename wheel. [0cFr]")
+                time.sleep(1)
+                continue
+            try:
+                whluzp = zipfile.ZipFile((unzipwhl + ".zip"), 'r')
+                os.chdir(currentdir)
+                if os.path.exists("output_temp"):
+                    print("Output from last job still exists.")
+                    print("Will be overwritten.")
+                os.chdir(whlsource)
+                whluzp.extractall(whlsource + "output_temp")
+                whluzp.close()
+            except:
+                print("Unzip Failed. [0cUf]")
+                time.sleep(1)
+                continue
+            try:
+                os.rename((unzipwhl + ".zip"), unzipwhl)
+            except:
+                print("Failed to rename wheel. [0cFr]")
+                time.sleep(1)
+                continue
+            os.chdir(currentdir)
+            break
         if verbose == True:
             print("Unzip complete.")
         if os.path.exists("output_temp"):
@@ -105,7 +162,7 @@ def core_unzip(linux,verbose):
             if verbose == True:
                 print("Testing for file exist...")
             if len(files) <1:
-                print("Unzip failed [0cFm]. Please try again.")
+                print("Unzip failed [0cFm].\nPlease try again.")
                 exit()
             if verbose == True:
                 print("Assuming unzip was successful.")
@@ -120,6 +177,7 @@ def core_unzip(linux,verbose):
                 print("Will be overwritten.")
                 if linux == False:
                     os.system("rmdir /S /Q output_final")
+            print(os.getcwd())
             os.chdir('mangotools')
             try:
                 shutil.copytree("output_temp", movedir)
@@ -131,9 +189,10 @@ def core_unzip(linux,verbose):
                 print("Move successful.")
                 print("Attempting to remove temp...")
             try:
-                os.chdir("mangotools")
-                os.rmdir("output_temp")
-                os.chdir('..')
+                if linux == False:
+                    os.chdir("mangotools")
+                    os.system("rmdir /S /Qoutput_temp")
+                    os.chdir('..')
             except:
                 print("Failed to remove temp file. [0cRm]")
                 print("May cause future errors.")
@@ -165,7 +224,7 @@ def core_selftest(linux):
         print("Self test failed. [2cSt]")
         return ("")
     similar = SequenceMatcher(None, master, core_content).ratio()
-    if similar < 0.94740:
+    if similar < 0.946:
         print("Modification detected!")
         print("Resetting Core...")
         with open('mangocore.py', 'w', newline='') as recore:
@@ -173,7 +232,7 @@ def core_selftest(linux):
             recore.close()
             print("Core reset.")
             print("Please restart.")
-            input()
+            time.sleep(1)
             exit()
     else:
         print("Core self test complete.")
