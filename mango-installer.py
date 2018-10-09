@@ -1,15 +1,15 @@
-###MANGO-INSTALLER-0.0.0.2###
+###MANGO-INSTALLER-0.0.0.4###
 '''
 '''
 title='''
   __  __                         
- |  \/  |Development 0924180016                    
+ |  \/  |Development 1009180021                   
  | \  / | __ _ _ __   __ _  ___  
  | |\/| |/ _` | '_ \ / _` |/ _ \ 
  | |  | | (_| | | | | (_| | (_) |
  |_|  |_|\__,_|_| |_|\__, |\___/
-  ______________________/ | V.0
- |________________________| ALP
+  ______________________/ | V.1
+ |________________________| BET
 '''
 '''
 Hello User! Welcome to the Mango source code. Credits can be found either below or embedded with the code they are crediting.
@@ -48,22 +48,6 @@ def rai_prep(coremod,linux):
             core.write(master)
             core.close()
     print("Created mangocore.py")
-    if linux == False:
-        print("Creating unzip subprocess...")
-        with open('unzip.bat', 'a') as uw:
-            uw.write("@@:: Script Credit - https://stackoverflow.com/questions/2609985/how-to-run-a-powershell-script-within-a-windows-batch-file\n")
-            uw.write("@@setlocal\n")
-            uw.write("@@set POWERSHELL_BAT_ARGS=%*\n")
-            uw.write('@@if defined POWERSHELL_BAT_ARGS set POWERSHELL_BAT_ARGS=%POWERSHELL_BAT_ARGS:"=\"%\n')
-            uw.write("@@PowerShell -Command Invoke-Expression $('$args=@(^&{$args} %POWERSHELL_BAT_ARGS%);'+[String]::Join([char]10,$((Get-Content '%~f0') -notmatch '^^@@'))) & goto :EOF\n")
-            uw.write("$whl = Read-Host -Prompt 'Enter absolute path for .whl file'\n")
-            uw.write('Set-Variable -Name "whlzip" -Value ($whl + ".zip")\n')
-            uw.write('Rename-Item -path $whl -NewName $whlzip\n')
-            uw.write('Expand-Archive -Force $whlzip -DestinationPath "output_temp"\n')
-            uw.write('Rename-Item -path $whlzip -NewName $whl\n')
-            uw.close()
-        print("Done.")
-    print("Creating dedicated script...")
     try:
         update = urllib.request.Request('https://raw.githubusercontent.com/SimLoads/mango/mango-tools/mangomanual')
         response = urllib.request.urlopen(update)
@@ -244,19 +228,6 @@ def setup(use_title,reinstall,coremod,rai):
             os.chdir('mangotools')
         except:
             pass
-        with open('unzip.bat', 'a') as uw:
-            uw.write("@@:: Script Credit - https://stackoverflow.com/questions/2609985/how-to-run-a-powershell-script-within-a-windows-batch-file\n")
-            uw.write("@@setlocal\n")
-            uw.write("@@set POWERSHELL_BAT_ARGS=%*\n")
-            uw.write('@@if defined POWERSHELL_BAT_ARGS set POWERSHELL_BAT_ARGS=%POWERSHELL_BAT_ARGS:"=\"%\n')
-            uw.write("@@PowerShell -Command Invoke-Expression $('$args=@(^&{$args} %POWERSHELL_BAT_ARGS%);'+[String]::Join([char]10,$((Get-Content '%~f0') -notmatch '^^@@'))) & goto :EOF\n")
-            uw.write("$whl = Read-Host -Prompt 'Enter absolute path for .whl file'\n")
-            uw.write('Set-Variable -Name "whlzip" -Value ($whl + ".zip")\n')
-            uw.write('Rename-Item -path $whl -NewName $whlzip\n')
-            uw.write('Expand-Archive -Force $whlzip -DestinationPath "output_temp"\n')
-            uw.write('Rename-Item -path $whlzip -NewName $whl\n')
-            uw.close()
-        print("Done.")
     os.chdir('..')
     print("Creating mango.py...")
     try:
@@ -281,7 +252,6 @@ def setup(use_title,reinstall,coremod,rai):
         print("Launching...")
         try:
             os.startfile("mango.py")
-            exit()
         except:
             pass
         exit()
