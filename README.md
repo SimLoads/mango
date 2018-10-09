@@ -1,5 +1,9 @@
 # Welcome to Mango!
-A python script launcher and module localizer. Here's what Mango can do...
+A python script launcher and module localizer. 
+
+## PLEASE NOTE
+### Mango is still in heavy development, and while many of the features are in place in the code, they may not actually work.
+### Please bear with me, I'm working to fix all of the issues you may have with Mango.
 
 # No More Missing Modules!
 Mango uses raw .whl files for modules and appends some code at the top of your script to allow it to find the modules. Running code on machines that aren't yours couldn't be easier. Since Mango only uses modules that are pre packaged with Python, installation is simple and very possible on other machines, and allows your program to use whatever modules you want on a machine that you may not be able to install them on ordinarily. 
@@ -21,18 +25,8 @@ sys.path.insert(0, "path_to_modules")
 import foo
 foo(x)
 ```
-Great, now your code knows where to look. However, it's  _not_ looking for .whl files, it's looking for .py files. Mango will then unzip the .whl file, using something like:
-```
-unzip foo.whl
-```
-Or, on Windows:
-```
-$whl = Read-Host -Prompt 'Enter absolute path for .whl file'
-Set-Variable -Name "whlzip" -Value ($whl + '.zip')
-Rename-Item -path $whl -NewName $whlzip
-Expand-Archive -Force $whlzip -DestinationPath "output"
-Rename-Item -path $whlzip -NewName $whl
-```
+Great, now your code knows where to look. However, it's  _not_ looking for .whl files, it's looking for .py files. Mango will then unzip the .whl file, using the Python module _Zipfile_.
+
 In essence, Mango automates the process of local module installation, and allows modules to be used without the need for PIP. Mango can also launch your Python scripts for you, and keep all their files and tangents organized in one neat folder. 
 
 # Cross OS Support
