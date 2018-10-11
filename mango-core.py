@@ -1,6 +1,7 @@
-###MANGO-CORE-0.0.0.8###
+'##MOD##'
+###MANGO-CORE-0.0.1.0###
 '''
-1011180031
+1011180036
 '''
 def core_test():
     print("Mango Core Response Successful.")
@@ -8,6 +9,11 @@ def core_unzip(linux,verbose):
     # Yes I know, I could've used a function for the failed import thing, but no.
     # Needlessly complex code makes it harder to clone... right?
     import time
+    if verbose == "RAI":
+        print("Core restricted mode")
+        print("Performing functions manually")
+        time.sleep(1)
+        input()
     try:
         import subprocess
         if verbose == True:
@@ -64,19 +70,13 @@ def core_unzip(linux,verbose):
         exit()
     if verbose == True:
         print("Using Windows.")
-    try:
-        os.chidr("mangotools")
-        if verbose == True:
-            print("Directory changed.")
-    except:
-        if verbose == True:
-            print("No directory change needed.")
-        pass
     movedir = (re.escape(os.getcwd()) + "\\\\output_final")
     try:
         os.chdir("mangotools")
     except:
         if "mangotools" in os.getcwd():
+            pass
+        if verbose == "RAI":
             pass
         else:
             print("Failed to find mangotools. [0cMg]")
@@ -86,6 +86,70 @@ def core_unzip(linux,verbose):
     if ' ' in currentdir:
         print("Directory name contains\nillegal characters. [0cIc]")
         time.sleep(1)
+        exit()
+    if '-' in currentdir:
+        print("Directory name contains\nillegal characters. [0cIc]")
+        time.sleep(1)
+        exit()
+    if verbose == "RAI":
+        print("Please move the wheel to the current directory manually.")
+        while True:
+            print("Press enter to verify.")
+            input()
+            if len(glob.glob('*.whl')) == 0:
+                print("No wheel found. Ensure it's in the current working directory.")
+                continue
+            if len(glob.glob('*.whl')) > 1:
+                print("Please only use one wheel.")
+                continue
+            else:
+                print("Found wheel.")
+                break
+        print("Unzipping wheel...")
+        try:
+            # What even are variables
+            os.rename(((glob.glob("*.whl"))[0]), (((glob.glob("*.whl"))[0]) + ".zip"))
+        except:
+            print("Auto rename failed.")
+            aurnm = False
+        if len(glob.glob("*.zip")) == 1:
+            print("Auto rename success!")
+            aurnm = True
+        else:
+            if aurnm == False:
+                pass
+            print("Auto rename failed.")
+            aurnm = False
+        if aurnm == False:
+            while True:
+                print("Add .zip to the end of the wheel, to make it a zip file.")
+                print("Press enter to verify.")
+                input()
+                if len(glob.glob("*.zip")) == 1:
+                    print("Rename successful.")
+                    break
+                else:
+                    print("Rename failed.")
+                    continue
+        print("Attempting to unzip...")
+        whluzp = zipfile.ZipFile(((glob.glob("*.zip"))[0]), 'r')
+        whluzp.extractall("output_temp")
+        whluzp.close()
+        if not os.path.exists("output_temp"):
+            print("Failed to unzip wheel.")
+            print("Please extract from the .zip file manually.")
+            print("Place the output into a folder called output_temp")
+            while True:
+                input("Press enter to continue.")
+                if os.path.exists("output_temp"):
+                    print("Output found.")
+                    break
+                else:
+                    print("No output.")
+                    print("Please retry.")
+                    continue
+        print("RAI mode is still in development.")
+        time.sleep(3)
         exit()
     while True:
         whlsource = input("Enter absolute path containing .whl: ")
@@ -144,6 +208,7 @@ def core_unzip(linux,verbose):
             print("Failed to rename wheel. [0cFr]")
             time.sleep(1)
             continue
+        time.sleep(1)
         try:
             shutil.copytree('output_temp', tempmove)
         except:
