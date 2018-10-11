@@ -1,5 +1,7 @@
-###MANGO-CORE-0.0.0.6###
+'##MOD##'
+###MANGO-CORE-0.0.0.8###
 '''
+1011180031
 '''
 def core_test():
     print("Mango Core Response Successful.")
@@ -7,11 +9,6 @@ def core_unzip(linux,verbose):
     # Yes I know, I could've used a function for the failed import thing, but no.
     # Needlessly complex code makes it harder to clone... right?
     import time
-    if linux == True:
-        print("Linux mode still in development.")
-        print("Please try again soon.")
-        time.sleep(1)
-        exit()
     try:
         import subprocess
         if verbose == True:
@@ -66,142 +63,145 @@ def core_unzip(linux,verbose):
         print("Exiting...")
         time.sleep(1)
         exit()
-    if linux == False:
+    if verbose == True:
+        print("Using Windows.")
+    try:
+        os.chidr("mangotools")
         if verbose == True:
-            print("Using Windows.")
-        try:
-            os.chidr("mangotools")
-            if verbose == True:
-                print("Directory changed.")
-        except:
-            if verbose == True:
-                print("No directory change needed.")
+            print("Directory changed.")
+    except:
+        if verbose == True:
+            print("No directory change needed.")
+        pass
+    movedir = (re.escape(os.getcwd()) + "\\\\output_final")
+    try:
+        os.chdir("mangotools")
+    except:
+        if "mangotools" in os.getcwd():
             pass
-        movedir = (re.escape(os.getcwd()) + "\\\\output_final")
-        try:
-            os.chdir("mangotools")
-        except:
-            if "mangotools" in os.getcwd():
-                pass
-            else:
-                print("Failed to find mangotools. [0cMg]")
-                time.sleep(1)
-                exit()
-        currentdir = os.getcwd()
-        if ' ' in currentdir:
-            print("Directory name contains\nillegal characters. [0cIc]")
+        else:
+            print("Failed to find mangotools. [0cMg]")
             time.sleep(1)
             exit()
-        while True:
-            whlsource = input("Enter absolute path containing .whl: ")
-            if len(whlsource) == 0:
-                print("Invalid Directory")
-                continue
-            try:
-                os.chdir(whlsource)
-                os.chdir(currentdir)
-            except:
-                print("Invalid Directory")
-                continue
+    currentdir = os.getcwd()
+    if ' ' in currentdir:
+        print("Directory name contains\nillegal characters. [0cIc]")
+        time.sleep(1)
+        exit()
+    while True:
+        whlsource = input("Enter absolute path containing .whl: ")
+        if len(whlsource) == 0:
+            print("Invalid Directory")
+            continue
+        try:
             os.chdir(whlsource)
-            wheels = glob.glob("*.whl")
-            if len(wheels) == 0:
-                print("No wheels found.")
-                print("Invalid Directory.")
-                continue
-            if len(wheels) > 1:
-                print("Multiple wheels found!")
-                for letter,number in enumerate(wheels):
-                    letter = letter + 1
-                    letter = str(letter)
-                    print(letter + ":", number)
-                chwhl = input("Select wheel: ")
-                try:
-                    unzipwhl = wheels[(int(chwhl) - 1)]
-                except:
-                    print("Invalid choice")
-                    continue
-            if len(wheels) == 1:
-                unzipwhl = wheels[0]
-            try:
-                os.rename(unzipwhl, (unzipwhl + ".zip"))
-            except:
-                print("Failed to rename wheel. [0cFr]")
-                time.sleep(1)
-                continue
-            try:
-                whluzp = zipfile.ZipFile((unzipwhl + ".zip"), 'r')
-                os.chdir(currentdir)
-                if os.path.exists("output_temp"):
-                    print("Output from last job still exists.")
-                    print("Will be overwritten.")
-                os.chdir(whlsource)
-                whluzp.extractall(whlsource + "output_temp")
-                whluzp.close()
-            except:
-                print("Unzip Failed. [0cUf]")
-                time.sleep(1)
-                continue
-            try:
-                os.rename((unzipwhl + ".zip"), unzipwhl)
-            except:
-                print("Failed to rename wheel. [0cFr]")
-                time.sleep(1)
-                continue
             os.chdir(currentdir)
-            break
-        if verbose == True:
-            print("Unzip complete.")
-        if os.path.exists("output_temp"):
-            if verbose == True:
-                print("output_temp exists")
-            os.chdir("output_temp")
-            if verbose == True:
-                print("Switched to output_temp")
-            files = glob.glob("*")
-            if verbose == True:
-                print("Testing for file exist...")
-            if len(files) <1:
-                print("Unzip failed [0cFm].\nPlease try again.")
-                exit()
-            if verbose == True:
-                print("Assuming unzip was successful.")
-            os.chdir('..')
-            if verbose == True:
-                print("Moved back out of output_temp")
-            if verbose == True:
-                print("Attempting to move files...")
-            os.chdir('..')
-            if os.path.exists("output_final"):
+        except:
+            print("Invalid Directory")
+            continue
+        os.chdir(whlsource)
+        wheels = glob.glob("*.whl")
+        if len(wheels) == 0:
+            print("No wheels found.")
+            print("Invalid Directory.")
+            continue
+        if len(wheels) > 1:
+            print("Multiple wheels found!")
+            for letter,number in enumerate(wheels):
+                letter = letter + 1
+                letter = str(letter)
+                print(letter + ":", number)
+            chwhl = input("Select wheel: ")
+            try:
+                unzipwhl = wheels[(int(chwhl) - 1)]
+            except:
+                print("Invalid choice")
+                continue
+        if len(wheels) == 1:
+            unzipwhl = wheels[0]
+        try:
+            os.rename(unzipwhl, (unzipwhl + ".zip"))
+        except:
+            print("Failed to rename wheel. [0cFr]")
+            time.sleep(1)
+            continue
+        try:
+            whluzp = zipfile.ZipFile((unzipwhl + ".zip"), 'r')
+            os.chdir(currentdir)
+            tempmove = (re.escape(os.getcwd()) + "\\\\output_temp")
+            if os.path.exists("output_temp"):
                 print("Output from last job still exists.")
                 print("Will be overwritten.")
-                if linux == False:
-                    os.system("rmdir /S /Q output_final")
-            print(os.getcwd())
-            os.chdir('mangotools')
-            try:
-                shutil.copytree("output_temp", movedir)
-            except:
-                print("Unzip failed [0cMd]. Please try again.")
-                time.sleep(1)
-                exit()
-            if verbose == True:
-                print("Move successful.")
-                print("Attempting to remove temp...")
-            try:
-                if linux == False:
-                    os.chdir("mangotools")
-                    os.system("rmdir /S /Qoutput_temp")
-                    os.chdir('..')
-            except:
-                print("Failed to remove temp file. [0cRm]")
-                print("May cause future errors.")
-                print("Manual removal recommended.")
-            print("Finished unzipping.")
-        else:
-            print("Unzip failed [0cNf]. Please try again.")
+            os.chdir(whlsource)
+            whluzp.extractall("output_temp")
+            whluzp.close()
+        except:
+            print("Unzip Failed. [0cUf]")
+            time.sleep(1)
+            continue
+        try:
+            os.rename((unzipwhl + ".zip"), unzipwhl)
+        except:
+            print("Failed to rename wheel. [0cFr]")
+            time.sleep(1)
+            continue
+        try:
+            shutil.copytree('output_temp', tempmove)
+        except:
+            print("Failed to complete unzip [0cDm]")
             time.sleep(1)
             exit()
+        os.chdir(currentdir)
+        break
+    if verbose == True:
+        print("Unzip complete.")
+    if os.path.exists("output_temp"):
+        if verbose == True:
+            print("output_temp exists")
+        os.chdir("output_temp")
+        if verbose == True:
+            print("Switched to output_temp")
+        files = glob.glob("*")
+        if verbose == True:
+            print("Testing for file exist...")
+        if len(files) <1:
+            print("Unzip failed [0cFm].\nPlease try again.")
+            exit()
+        if verbose == True:
+            print("Assuming unzip was successful.")
+        os.chdir('..')
+        if verbose == True:
+            print("Moved back out of output_temp")
+        if verbose == True:
+            print("Attempting to move files...")
+        if os.path.exists("output_final"):
+            print("Output from last job still exists.")
+            print("Will be overwritten.")
+            if linux == False:
+                os.system("rmdir /S /Q output_final")
+        try:
+            shutil.copytree("output_temp", movedir)
+        except:
+            print("Unzip failed [0cMd]. Please try again.")
+            time.sleep(1)
+            exit()
+        if verbose == True:
+            print("Move successful.")
+            print("Attempting to remove temp...")
+        try:
+            if linux == False:
+                os.chdir("mangotools")
+                os.system("rmdir /S /Qoutput_temp")
+                os.chdir('..')
+        except:
+            print("Failed to remove temp file. [0cRm]")
+            print("May cause future errors.")
+            print("Manual removal recommended.")
+        print("Finished unzipping.")
+    else:
+        print("Unzip failed [0cNf]. Please try again.")
+        time.sleep(1)
+        exit()
 def core_selftest(linux):
     import time
     import os
@@ -237,7 +237,7 @@ def core_selftest(linux):
     else:
         print("Core self test complete.")
         return ("")
-def core_codeprepare(codedir,verbose,linux):
+def core_codeprepare(codedir,verbose,linux,source):
     import os
     import sys
     import time
@@ -254,26 +254,21 @@ def core_codeprepare(codedir,verbose,linux):
     if verbose == True:
         print("Preparing to append...")
     currentdir = os.getcwd()
-    if not os.path.exists("output_final"):
+    if not os.path.exists(source):
         print("No output detected.")
         print("Unzip a .whl file before trying to import it.")
         exit()
     print("Output found!")
-    os.chdir('output_final')
-    if verbose == True:
-        print("Switched Directories")
     in_output = glob.glob("*")
     if verbose == True:
         print("Scanned for files...")
-    if "dist-info" in in_output[0]:
-        name = in_output[1]
-    else:
-        name = in_output[0]
     if verbose == True:
         print("Package name selected.")
+    name_delim = re.escape(os.getcwd())
+    source = re.escape(source)
+    name = source.replace(name_delim, '')
+    name = name.replace('\\', '')
     print("Package: " + name)
-    source = re.escape(os.getcwd())
-    source_package = (source + "\\\\" + name)
     if verbose == True:
         print("Prepared package source")
     try:
@@ -284,21 +279,6 @@ def core_codeprepare(codedir,verbose,linux):
         print("Invalid code directory. [1cId]")
         time.sleep(1)
         exit()
-    codedir = (codedir + "\\\\" + name)
-    if verbose == True:
-        print("Prepared destination")
-    if os.path.exists(codedir):
-        print("Package already exists. [1cPe]")
-        time.sleep(1)
-        print("Overwriting...")
-        shutil.rmtree(codedir, ignore_errors=True)
-    try:
-        shutil.copytree(source_package, codedir)
-    except:
-        print("Failed to copy directory. [1cFd]")
-        time.sleep(1)
-        exit()
-    print("Copy Successful.")
     pyfiles = glob.glob("*.py")
     if verbose == True:
         print("Scanned for .py files")
@@ -327,6 +307,7 @@ def core_codeprepare(codedir,verbose,linux):
                 print("Invalid choice.")
     else:
         pyc = pyfiles[0]
+    print("Appending file " + pyc)
     string = ("sys.path.insert(0, '" + name + "')\n")
     if verbose == True:
         print("Prepared sys string")
