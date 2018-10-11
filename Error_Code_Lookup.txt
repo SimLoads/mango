@@ -14,6 +14,12 @@ MANGO
  - Not a huge problem, just may cause a few problems with the next unpack. Delete output_temp from mangotools manually to prevent any potential errors, though I'm not sure there would be any.
 [0cNf]
  - Unzip failed - output_temp couldn't be found. For whatever reason a fatal error occured, try running the program again, maybe from a different directory.
+[0cDm]
+ - Failed to complete unzip - Mango couldn't move output_temp out of the target wheel directory. Not sure what exactly causes this but it's annoying and Python can't seem to sort itself out about it, working on a fix.
+[0cRd]
+ - Failed to rename output - This is mainly an os.rename function problem because Python won't return shell errors. Try elevated privelages.
+[0cOf]
+ - Failed to create output file - Fatal error, I have no idea what may cause this. I'm working on a way around it.
 [1cId]
  - Invalid code directory - The selected directory doesn't exist. Ensure it was entered correctly.
 [1cPe]
@@ -30,6 +36,3 @@ MANGO
  - Failed to append - Could not append import function to Python file. Try again or choose another Python file. Working on a fix.
 [2cSt]
  - Self test failed - Triggered by no internet connection. Mango will continue to function, but Mango is just letting you know it doesn't work. 
-
-
-
