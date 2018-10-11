@@ -3,7 +3,7 @@ MANGO
 [0cMg]
  - Failed to find Mangotools - The folder that mango's tools are in couldn't be found. Try reinstalling Mango.
 [0cIc]
- - Directory name contains illegal characters - The directory has spaces in, or characters that can't be processed by Shutil. Try removing spaces from the directory.
+ - Directory name contains illegal characters - The current working directory has illegal characters. Try removing them. Keep in mind these characters should also be removed from target directories.
 [0cUf]
  - Failed to find unzip.bat - Occurs on Windows only. This isn't exactly fixable by yourself, but I'm working on it.
 [0cFm]
