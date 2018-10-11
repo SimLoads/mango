@@ -1,4 +1,4 @@
-###MANGO-AUTO-0.0.0.4####
+###MANGO-AUTO-0.0.0.8####
 import os
 import sys
 import time
@@ -7,13 +7,13 @@ import shutil
 import glob
 title='''
   __  __                         
- |  \/  |Development 0925180026                    
+ |  \/  |Development 1011180031                    
  | \  / | __ _ _ __   __ _  ___  
  | |\/| |/ _` | '_ \ / _` |/ _ \ 
  | |  | | (_| | | | | (_| | (_) |
  |_|  |_|\__,_|_| |_|\__, |\___/
-  ______________________/ | V.0
- |________________________| ALP
+  ______________________/ | V.1
+ |________________________| BET
 '''
 def clrslo():
     import platform
@@ -54,7 +54,7 @@ print("3} Create MangoScript")
 print("4} Exit")
 mch = input("")
 if mch == "1":
-    verbose = False
+    verbose = True
     mangocore.core_unzip(linux,verbose)
     print("")
     path_copy = input("Enter absolute path of code: ")
@@ -174,6 +174,6 @@ if mch == "2":
         exit()
     os.chdir(cu_dr)
     verbose = False
-    mangocore.core_codeprepare(codedir,verbose,linux)
+    mangocore.core_codeprepare(codedir,verbose,linux,source)
 else:
     exit()
