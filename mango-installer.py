@@ -335,7 +335,8 @@ def install_set():
         use_title = False
         reinstall = False
         coremod = False
-        setup(use_title,reinstall,coremod)
+        rai = False
+        setup(use_title,reinstall,coremod,rai)
     else:
         install_set()
 import os
@@ -350,44 +351,60 @@ else:
     os.system("cls")
     os.system("@mode con cols=34 lines=34")
 if not os.path.exists("mangotools"):
-    print(title)
-    print("----------------------------------")
-    print("Welcome to Mango!")
-    print("1} Install now")
-    print("2} Modify installation")
-    print("3} Exit")
-    choice = input("")
-    if choice == "1":
-        use_title = True
-        coremod = False
-        rai = False
-        setup(use_title,reinstall,coremod,rai)
-    if choice == "2":
-        install_set()
-    else:
-        print("Exiting...")
-        time.sleep(0.5)
-        exit()
-else:
-    print(title)
-    print("Mango is already installed!")
-    print("Reinstall Mango? [y/n]")
-    reinstall = input("")
-    if reinstall == "y":
+    while True:
         if not "Windows" in (platform.platform()):
-            linux = True
             os.system("clear")
+            os.system("printf '\e[8;34;34t'")
         else:
-            linux = False
             os.system("cls")
-        if linux == False:
-            os.system("attrib -s -h mangotools")
-        if linux == False:
-            os.system("rmdir /S /Q mangotools")
+            os.system("@mode con cols=34 lines=34")
+        print(title)
+        print("----------------------------------")
+        print("Welcome to Mango!")
+        print("1} Install now")
+        print("2} Modify installation")
+        print("3} Exit")
+        choice = input("")
+        if choice == "1":
+            use_title = True
+            coremod = False
+            rai = False
+            setup(use_title,reinstall,coremod,rai)
+            break
+        if choice == "2":
+            install_set()
+            break
         else:
-            os.system("rm -rf mangotools")
-        install_set()
-    else:
-        print("Exiting...")
-        time.sleep(0.5)
-        exit()
+            continue
+else:
+    while True:
+        if not "Windows" in (platform.platform()):
+            os.system("clear")
+            os.system("printf '\e[8;34;34t'")
+        else:
+            os.system("cls")
+            os.system("@mode con cols=34 lines=34")
+        print(title)
+        print("Mango is already installed!")
+        print("Reinstall Mango? [y/n]")
+        reinstall = input("")
+        if reinstall == "y":
+            if not "Windows" in (platform.platform()):
+                linux = True
+                os.system("clear")
+            else:
+                linux = False
+                os.system("cls")
+            if linux == False:
+                os.system("attrib -s -h mangotools")
+            if linux == False:
+                os.system("rmdir /S /Q mangotools")
+            else:
+                os.system("rm -rf mangotools")
+            install_set()
+            break
+        else:
+            print("Exiting...")
+            time.sleep(1)
+            exit()
+            break
