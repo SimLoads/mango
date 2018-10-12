@@ -1,6 +1,7 @@
-###MANGO-CORE-0.0.1.0###
+'##MOD##'
+###MANGO-CORE-0.0.1.2###
 '''
-1011180036
+1012180041
 '''
 def core_test():
     print("Mango Core Response Successful.")
@@ -12,7 +13,6 @@ def core_unzip(linux,verbose):
         print("Core restricted mode")
         print("Performing functions manually")
         time.sleep(1)
-        input()
     try:
         import subprocess
         if verbose == True:
@@ -132,24 +132,94 @@ def core_unzip(linux,verbose):
                     continue
         print("Attempting to unzip...")
         whluzp = zipfile.ZipFile(((glob.glob("*.zip"))[0]), 'r')
-        whluzp.extractall("output_temp")
+        whluzp.extractall(os.getcwd())
         whluzp.close()
-        if not os.path.exists("output_temp"):
-            print("Failed to unzip wheel.")
-            print("Please extract from the .zip file manually.")
-            print("Place the output into a folder called output_temp")
-            while True:
-                input("Press enter to continue.")
-                if os.path.exists("output_temp"):
-                    print("Output found.")
-                    break
+        found = (os.listdir(os.getcwd()))
+        guesslist = []
+        for number,letter in enumerate(found):
+            if "." in letter:
+                continue
+            if "dist-info" in letter:
+                continue
+            guesslist.append(letter)
+        if len(guesslist) == 1:
+            print("Assuming package is " + guesslist[0])
+            pointer = guesslist[0]
+        else:
+            choice = False
+            while choice == False:
+                for number,letter in enumerate(guesslist):
+                    print("Is the package '" + letter + "'?")
+                    pa_ch = input("[y/n] ")
+                    if pa_ch == "y":
+                        pointer = letter
+                        choice = True
+                        break
+                    else:
+                        continue
+        print("Place the python file to append in the current directory.")
+        while True:
+            print("Press enter to verify.")
+            input()
+            pys = [f for f in glob.glob("*.py")]
+            if len(pys) == 0:
+                print("Failed to find any .py files.")
+                continue
+            if len(pys) > 1:
+                templist = []
+                for number,letter in enumerate(pys):
+                    print(letter)
+                    if "mango" in letter:
+                        print("memes")
+                        continue
+                    templist.append(letter)
+                if len(templist) == 1:
+                    pys.clear()
+                    pys.append(templist[0])
                 else:
-                    print("No output.")
-                    print("Please retry.")
+                    print("Please only use one .py file.")
                     continue
-        print("RAI mode is still in development.")
-        time.sleep(3)
-        exit()
+            if len(pys) == 1:
+                string = ("sys.path.insert(0, '" + pointer + "')\n")
+                try:
+                    with open(pys[0], 'r') as r_f:
+                        contents = r_f.read()
+                        if verbose == True:
+                            print("Read file contents")
+                        r_f.close()
+                except:
+                    print("Failed to open .py file. [1cPf]")
+                    time.sleep(1)
+                    exit()
+                try:
+                    os.remove(pys[0])
+                    if verbose == True:
+                        print("Removed original file")
+                except:
+                    print("Failed to remove .py file. [1cRf]")
+                    time.sleep(1)
+                    exit()
+                try:
+                    with open(pys[0], 'a') as a_f:
+                        a_f.write("import sys\n")
+                        if verbose == True:
+                            print("Wrote import sys")
+                        a_f.write(string)
+                        if verbose == True:
+                            print("Wrote import package string")
+                        a_f.write(contents)
+                        if verbose == True:
+                            print("Rewrote contents")
+                        a_f.close()
+                except:
+                    print("Failed to append. [1cAf]")
+                    time.sleep(1)
+                    exit()
+                print("Append successful.")
+                print("File ready.")
+                print("Mango Manual success.")
+                time.sleep(1)
+                exit()
     while True:
         whlsource = input("Enter absolute path containing .whl: ")
         if len(whlsource) == 0:
