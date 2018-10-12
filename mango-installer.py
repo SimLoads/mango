@@ -1,17 +1,93 @@
-###MANGO-INSTALLER-0.0.0.0-DEVELOPMENT###
+###MANGO-INSTALLER-0.0.0.4###
 '''
 '''
 title='''
   __  __                         
- |  \/  |                        
+ |  \/  |Development 1009180021                   
  | \  / | __ _ _ __   __ _  ___  
  | |\/| |/ _` | '_ \ / _` |/ _ \ 
  | |  | | (_| | | | | (_| | (_) |
  |_|  |_|\__,_|_| |_|\__, |\___/
-  ______________________/ | V.0
- |________________________| ALP
+  ______________________/ | V.1
+ |________________________| BET
 '''
-def setup(use_title,reinstall,coremod):
+'''
+Hello User! Welcome to the Mango source code. Credits can be found either below or embedded with the code they are crediting.
+Thanks for using Mango! 
+'''
+import time
+def rai_prep(coremod,linux):
+    print("Requesting Mangocore from github...")
+    try:
+        update = urllib.request.Request('https://raw.githubusercontent.com/SimLoads/mango/mango-tools/mango-core.py')
+        response = urllib.request.urlopen(update)
+        newcode = response.read()
+        master = newcode.decode()
+    except:
+        print("Failed to connect.")
+        print("Please connect to the\ninternet and try again.")
+        time.sleep(5)
+        exit()
+    with open('mangocore.py', 'w', newline='') as core:
+        if coremod == True:
+            print("Core modification allowed")
+            if linux == True:
+                core.write(master)
+                core.close()
+                time.sleep(1)
+                os.system("sed -i '1i##MOD##' mangocore.py")
+            if linux == False:
+                core.write("'##MOD##'\n")
+                core.close()
+                time.sleep(1)
+                with open('mangocore.py', 'a', newline='') as corex:
+                    corex.write(master)
+                    corex.close()
+                core.close()
+        else:
+            core.write(master)
+            core.close()
+    print("Created mangocore.py")
+    try:
+        update = urllib.request.Request('https://raw.githubusercontent.com/SimLoads/mango/mango-tools/mangomanual')
+        response = urllib.request.urlopen(update)
+        newcode = response.read()
+        master = newcode.decode()
+    except:
+        print("Failed to connect.")
+        print("Please connect to the\ninternet and try again.")
+        time.sleep(5)
+        exit()
+    with open('mangomanual.py', 'w', newline='') as tool:
+        tool.write(master)
+        tool.close()
+    print("Script created.")
+    print("Launching...")
+    os.startfile("mangomanual.py")
+    exit()
+def clrs():
+    import platform
+    import os
+    if not "Windows" in (platform.platform()):
+        os.system("clear")
+        os.system("printf '\e[8;34;34t'")
+    else:
+        os.system("cls")
+        os.system("@mode con cols=34 lines=34")
+def clrslo():
+    import platform
+    import os
+    if not "Windows" in (platform.platform()):
+        os.system("clear")
+        os.system("printf '\e[8;34;34t'")
+        print(title)
+    else:
+        os.system("cls")
+        os.system("@mode con cols=34 lines=34")
+        print(title)
+def setup(use_title,reinstall,coremod,rai):
+    if rai == True:
+        print("Attempting RAI...")
     print("Determining OS...")
     if "Windows" in (platform.platform()):
         linux = False
@@ -32,11 +108,15 @@ def setup(use_title,reinstall,coremod):
     print("Shutil Import")
     import urllib.request
     print("Urllib.request Import")
-    if not os.path.exists("mangotools"):
-        os.mkdir("mangotools")
-        print("Created mangotools")
-    os.chdir("mangotools")
-    print("Changed Directory")
+    if rai == False:
+        if not os.path.exists("mangotools"):
+            os.mkdir("mangotools")
+            print("Created mangotools")
+    else:
+        print("Skipped directory creation")
+    if rai == False:
+        os.chdir("mangotools")
+        print("Changed Directory")
     if linux == True:
         print("Detected Linux usage...")
         print("Preparing...")
@@ -46,9 +126,14 @@ def setup(use_title,reinstall,coremod):
             sh.close()
         os.system("chmod u+x shelltools_pause.sh")
         Linux = True
-    if not os.path.exists("__init__.py"):
-        os.system("echo '' >> __init__.py")
-        print("Created __init__.py")
+    if rai == False:
+        if not os.path.exists("__init__.py"):
+            os.system("echo '' >> __init__.py")
+            print("Created __init__.py")
+    else:
+        print("Skipped module prep")
+        print("A seperate script will be created\nto use Mango.")
+        rai_prep(coremod,linux)
     if not os.path.exists("mangocore"):
         print("Requesting tools from github...")
         try:
@@ -58,19 +143,24 @@ def setup(use_title,reinstall,coremod):
             master = newcode.decode()
         except:
             print("Failed to connect.")
+            print("Please connect to the\ninternet and try again.")
+            time.sleep(1)
             exit()
-        with open('mangocore.py', 'w') as core:
+        with open('mangocore.py', 'w', newline='') as core:
             if coremod == True:
                 print("Core modification allowed")
-                core.write(master)
-                core.close()
-                time.sleep(1)
                 if linux == True:
+                    core.write(master)
+                    core.close()
+                    time.sleep(1)
                     os.system("sed -i '1i##MOD##' mangocore.py")
                 if linux == False:
-                    os.system("echo '##MOD##' >> coretemp.txt")
-                    os.system("move /y coretemp.txt mangocore.py")
-                    os.remove("coretemp.txt")
+                    core.write("'##MOD##'\n")
+                    core.close()
+                    time.sleep(1)
+                    with open('mangocore.py', 'a', newline='') as corex:
+                        corex.write(master)
+                        corex.close()
                     core.close()
             else:
                 core.write(master)
@@ -83,6 +173,7 @@ def setup(use_title,reinstall,coremod):
             master_C = newcode_C.decode()
         except:
             print("Failed to connect.")
+            time.sleep(1)
             exit()
         with open('mangoconfig.py', 'w') as config:
             config.write(master_C)
@@ -96,6 +187,7 @@ def setup(use_title,reinstall,coremod):
     except:
         print("Failed import!")
         print("Restart installation.")
+        time.sleep(1)
         exit()
     print("Imported Mango Core")
     pause = True
@@ -104,6 +196,7 @@ def setup(use_title,reinstall,coremod):
         mangocore.core_test()
     except:
         print("Test failed. Restart installation.")
+        time.sleep(1)
         exit()
     print("Testing Mango Configure...")
     try:
@@ -111,37 +204,114 @@ def setup(use_title,reinstall,coremod):
     except:
         print("Failed import!")
         print("Restart installation.")
+        time.sleep(1)
         exit()
     try:
         mangoconfig.config_test()
     except:
         print("Test failed. Restart installation.")
+        time.sleep(1)
         exit()
     if linux == True:
         os.chdir('mangotools')
         os.system("bash shelltools_pause.sh")
-        os.chdir('..')
     else:
-        os.system("pause")
+        pass
     if reinstall == True:
         print("Module reinstall finished.")
     else:
         print("Module install finished.")
-    print("Setting up launcher...")
-    exit()
+    print("Finalizing...")
+    if linux == False:
+        print("Creating Unzip Subprocess...")
+        try:
+            os.chdir('mangotools')
+        except:
+            pass
+    os.chdir('..')
+    print("Creating mango.py...")
+    try:
+        update_C = urllib.request.Request('https://raw.githubusercontent.com/SimLoads/mango/mango-tools/mangoauto.py')
+        response_C = urllib.request.urlopen(update_C)
+        newcode_C = response_C.read()
+        master_C = newcode_C.decode()
+    except:
+        print("Failed to connect.")
+        time.sleep(1)
+        exit()
+    with open('mango.py', 'w') as config:
+        config.write(master_C)
+        config.close()
+    clrslo()
+    print("Mango has finished installing.")
+    print("1} Launch dedicated script")
+    print("2} Add Mango to $PATH")
+    print("3} Exit without launching")
+    launchin = input("")
+    if launchin == "1":
+        print("Launching...")
+        try:
+            os.startfile("mango.py")
+        except:
+            pass
+        exit()
+    if launchin == "2":
+        print("This feature is currently in heavy development.")
+        print("Come back later!")
+        print("Mango will now close.")
+        time.sleep(5)
+        exit()
+    else:
+        print("Exiting...")
+        time.sleep(2)
+        exit()
 def install_set():
     global linux_set
     global core_set_mod
+    global core_rai_mod
+    clrslo()
     print("")
-    print("1} Allow core modification")
-    print("2} Disable config dependancy")
+    try:
+        if core_set_mod == True:
+            print("1} Allow core modification *")
+        else:
+            print("1} Allow core modification")
+    except:
+        print("1} Allow core modification")
+    try:
+        if core_rai_mod == True:
+            print("2} Restricted Access Install *")
+        else:
+            print("2} Restricted Access Install")
+    except:
+        print("2} Restricted Access Install")
     print("8} Ready to install")
     print("9} Discard changes")
     x = input("")
     if x == "1":
-        core_set_mod = True
-        print("Core modification allowed.")
-        install_set()
+        try:
+            if core_set_mod == True:
+                core_set_mod = False
+                print("Core modification disallowed.")
+                time.sleep(1)
+                install_set()
+        except:    
+            core_set_mod = True
+            print("Core modification allowed.")
+            time.sleep(1)
+            install_set()
+    if x == "2":
+        try:
+            if core_rai_mod == True:
+                core_rai_mod = False
+                print("RAI Disabled.")
+                time.sleep(1)
+                install_set()
+        except:
+            core_rai_mod = True
+            print("RAI Enabled.")
+            time.sleep(1)
+            install_set()
     if x == "8":
         use_title = True
         reinstall = False
@@ -152,19 +322,33 @@ def install_set():
                 coremod = False
         except:
             coremod = False
-        setup(use_title,reinstall,coremod)
+        try:
+            if core_rai_mod == True:
+                rai = True
+            if core_rai_mod == False:
+                rai = False
+        except:
+            rai = False
+        setup(use_title,reinstall,coremod,rai)
     if x == "9":
         print("Installing with default settings...")
         use_title = False
         reinstall = False
         coremod = False
         setup(use_title,reinstall,coremod)
+    else:
+        install_set()
 import os
 import time
+import urllib.request
 reinstall = False
-os.system("clear")
-os.system("printf '\e[8;34;34t'")
 import platform
+if not "Windows" in (platform.platform()):
+    os.system("clear")
+    os.system("printf '\e[8;34;34t'")
+else:
+    os.system("cls")
+    os.system("@mode con cols=34 lines=34")
 if not os.path.exists("mangotools"):
     print(title)
     print("----------------------------------")
@@ -176,11 +360,13 @@ if not os.path.exists("mangotools"):
     if choice == "1":
         use_title = True
         coremod = False
-        setup(use_title,reinstall,coremod)
+        rai = False
+        setup(use_title,reinstall,coremod,rai)
     if choice == "2":
         install_set()
     else:
         print("Exiting...")
+        time.sleep(0.5)
         exit()
 else:
     print(title)
@@ -200,10 +386,8 @@ else:
             os.system("rmdir /S /Q mangotools")
         else:
             os.system("rm -rf mangotools")
-        use_title = False
-        reinstall = True
-        coremod = False
-        setup(use_title,reinstall,coremod)
+        install_set()
     else:
         print("Exiting...")
+        time.sleep(0.5)
         exit()
