@@ -1,6 +1,6 @@
 MANGO
 
-MANGOCORE
+MANGOCORE:
 [0cMg]
  - Failed to find Mangotools - The folder that mango's tools are in couldn't be found. Try reinstalling Mango.
 [0cIc]
