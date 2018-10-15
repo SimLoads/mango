@@ -147,8 +147,6 @@ if mch == "1":
                 shutil.rmtree("output_final", ignore_errors=True)
             except:
                 pass
-        print(os.getcwd())
-        input()
         mch = "2"
 if mch == "2":
     codedir = input("Enter absolute path of code:")
