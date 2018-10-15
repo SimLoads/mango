@@ -1,4 +1,4 @@
-###MANGO-AUTO-0.0.0.8####
+###MANGO-AUTO-0.0.1.0####
 import os
 import sys
 import time
@@ -7,7 +7,7 @@ import shutil
 import glob
 title='''
   __  __                         
- |  \/  |Development 1011180031                    
+ |  \/  |Development 1015180036                    
  | \  / | __ _ _ __   __ _  ___  
  | |\/| |/ _` | '_ \ / _` |/ _ \ 
  | |  | | (_| | | | | (_| | (_) |
@@ -94,7 +94,7 @@ if mch == "1":
             print("Output_temp already exists.")
             print("Will be overwritten.")
             try:
-                os.system("rmdir /S /Q output_temp")
+                shutil.rmtree('output_temp', ignore_errors=True)
             except:
                 if os.path.exists("output_temp"):
                     print("Failed to delete.")
@@ -123,7 +123,7 @@ if mch == "1":
             shutil.copytree(("output_temp//" + name), ((os.getcwd()) + "\\" + name))
         except:
             try:
-                os.system("rmdir /S /Q " + name)
+                shutil.rmtree(name, ignore_errors=True)
                 shutil.copytree(("output_temp//" + name), ((os.getcwd()) + "\\" + name))
             except:
                 print("Failed to move package. [1aFm]")
@@ -139,15 +139,17 @@ if mch == "1":
         print("Cleaning up...")
         if os.path.exists("output_temp"):
             try:
-                os.system("rmdir /S /Q output_temp")
+                shutil.rmtree('output_temp', ignore_errors=True)
             except:
                 pass
         if os.path.exists("output_final"):
             try:
-                os.system("rmdir /S /Q output_final")
+                shutil.rmtree("output_final", ignore_errors=True)
             except:
                 pass
-        exit()
+        print(os.getcwd())
+        input()
+        mch = "2"
 if mch == "2":
     codedir = input("Enter absolute path of code:")
     cu_dr = os.getcwd()
@@ -166,7 +168,30 @@ if mch == "2":
     if len(pkgslst) == 1:
         with open(pkgslst[0], 'r') as pointer:
             source = pointer.read()
-            pointer.close()        
+            pointer.close()   
+    else:
+        paks = []
+        for number, letter in enumerate(pkgslst):
+            with open(pkgslst[number], 'r') as b:
+                varout = b.read()
+                b.close()
+            paks.append(varout)
+        while True:
+            sourcedef = False
+            for number, letter in enumerate(paks):
+                temppaks = paks[number].split('\\')
+                name = temppaks[-1]
+                print("Select pacakge " + name + "?")
+                ch_pks = input("[y/n]")
+                if ch_pks.lower() == "y":
+                    source = paks[number]
+                    sourcedef = True
+                    break
+                continue
+            if sourcedef == False:
+                continue
+            else:
+                break
     if not os.path.exists(source):
         print("No .whl unpack found. [2aNw]")
         print("Ensure unpack is in same folder as code")
