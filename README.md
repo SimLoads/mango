@@ -9,7 +9,7 @@ A python script launcher and module localizer.
 ## Using Mango
 Mango has a set way of working. Here's how to use it.
 
-
+### IF USING DEDICATED SCRIPT
 1: Install mango using mango-installer.py (*DON'T TRY TO INSTALL MANUALLY. IT WON'T WORK.*). The installer will do all the work for you, and ensure all the tools work together. If you're working on a machine that isn't yours, use Restricted Access Install to ensure Mango will work. An option is also available to enable modification of the core. 
 
 
@@ -20,6 +20,13 @@ Mango has a set way of working. Here's how to use it.
 
 
 4: Mango will now append the python file in the chosen directory with a string that imports the wheel file locally, all without the need for pip. If there are multiple python files, Mango will prompt you to choose one. The procedure is now finished. If you need to append multiple python files, run mango.py again and choose "Prepare code". Enter the same directory at the prompt and choose another python file to append.
+
+### IF USING TERMINAL INPUT (IN DEVELOPMENT)
+1: Structure your command like this:
+```
+$~/mango.py <function [1/2] <directory containing wheel> <directory containing code> <verbose [True/False]>
+```
+In the function section, use either 1 for a wheel unpack or 2 for code preperation. If everything is entered correctly, Mango _should_ finish the entire job automatically. Keep in mind this is in heavy development, so Mango may fail at points, or complete the job but not as entirely expected. Report issues on Github if you find any.
 
 # No More Missing Modules!
 Mango uses raw .whl files for modules and appends some code at the top of your script to allow it to find the modules. Running code on machines that aren't yours couldn't be easier. Since Mango only uses modules that are pre packaged with Python, installation is simple and very possible on other machines, and allows your program to use whatever modules you want on a machine that you may not be able to install them on ordinarily. 
