@@ -1,7 +1,6 @@
-'##MOD##'
 ###MANGO-CORE-0.0.1.4###
 '''
-1012180046
+1015180046
 '''
 def core_test():
     print("Mango Core Response Successful.")
