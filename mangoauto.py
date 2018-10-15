@@ -10,7 +10,9 @@ try:
     path_whl = sys.argv[2]
     path_out = sys.argv[3]
     verb = sys.argv[4]
+    term = True
 except:
+    term = False
     pass
 title='''
   __  __                         
@@ -52,7 +54,8 @@ else:
     linux = True
 mangocore.core_selftest(linux)
 os.chdir('..')
-clrslo()
+if term == False:
+    clrslo()
 try:
     if run_var == 1 or 2:
         mch = run_var
@@ -77,6 +80,7 @@ if mch == "1":
         termpath = path_whl
     except:
         termpath = ""
+    print("Working...")
     mangocore.core_unzip(linux,verbose,termpath)
     print("")
     try:
