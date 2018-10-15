@@ -1,9 +1,9 @@
-###MANGO-INSTALLER-0.0.0.4###
+###MANGO-INSTALLER-0.0.0.6###
 '''
 '''
 title='''
   __  __                         
- |  \/  |Development 1009180021                   
+ |  \/  |Development 1015180026                
  | \  / | __ _ _ __   __ _  ___  
  | |\/| |/ _` | '_ \ / _` |/ _ \ 
  | |  | | (_| | | | | (_| | (_) |
@@ -117,15 +117,6 @@ def setup(use_title,reinstall,coremod,rai):
     if rai == False:
         os.chdir("mangotools")
         print("Changed Directory")
-    if linux == True:
-        print("Detected Linux usage...")
-        print("Preparing...")
-        with open("shelltools_pause.sh", 'w') as sh:
-            sh.write("#!/bin/bash \nread -p 'Press any key to continue...'")
-            sh.write('')
-            sh.close()
-        os.system("chmod u+x shelltools_pause.sh")
-        Linux = True
     if rai == False:
         if not os.path.exists("__init__.py"):
             os.system("echo '' >> __init__.py")
@@ -222,13 +213,6 @@ def setup(use_title,reinstall,coremod,rai):
     else:
         print("Module install finished.")
     print("Finalizing...")
-    if linux == False:
-        print("Creating Unzip Subprocess...")
-        try:
-            os.chdir('mangotools')
-        except:
-            pass
-    os.chdir('..')
     print("Creating mango.py...")
     try:
         update_C = urllib.request.Request('https://raw.githubusercontent.com/SimLoads/mango/mango-tools/mangoauto.py')
@@ -344,20 +328,10 @@ import time
 import urllib.request
 reinstall = False
 import platform
-if not "Windows" in (platform.platform()):
-    os.system("clear")
-    os.system("printf '\e[8;34;34t'")
-else:
-    os.system("cls")
-    os.system("@mode con cols=34 lines=34")
+clrs()
 if not os.path.exists("mangotools"):
     while True:
-        if not "Windows" in (platform.platform()):
-            os.system("clear")
-            os.system("printf '\e[8;34;34t'")
-        else:
-            os.system("cls")
-            os.system("@mode con cols=34 lines=34")
+        clrs()
         print(title)
         print("----------------------------------")
         print("Welcome to Mango!")
@@ -378,12 +352,7 @@ if not os.path.exists("mangotools"):
             continue
 else:
     while True:
-        if not "Windows" in (platform.platform()):
-            os.system("clear")
-            os.system("printf '\e[8;34;34t'")
-        else:
-            os.system("cls")
-            os.system("@mode con cols=34 lines=34")
+        clrs()
         print(title)
         print("Mango is already installed!")
         print("Reinstall Mango? [y/n]")
@@ -395,12 +364,7 @@ else:
             else:
                 linux = False
                 os.system("cls")
-            if linux == False:
-                os.system("attrib -s -h mangotools")
-            if linux == False:
-                os.system("rmdir /S /Q mangotools")
-            else:
-                os.system("rm -rf mangotools")
+            shutil.rmtree('mangotools', ignore_errors=True)
             install_set()
             break
         else:
