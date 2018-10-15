@@ -1,13 +1,20 @@
-###MANGO-AUTO-0.0.1.0####
+###MANGO-AUTO-0.0.1.2####
 import os
 import sys
 import time
 import platform
 import shutil
 import glob
+try:
+    run_var = sys.argv[1]
+    path_whl = sys.argv[2]
+    path_out = sys.argv[3]
+    verb = sys.argv[4]
+except:
+    pass
 title='''
   __  __                         
- |  \/  |Development 1015180036                    
+ |  \/  |Development 1015180041                   
  | \  / | __ _ _ __   __ _  ___  
  | |\/| |/ _` | '_ \ / _` |/ _ \ 
  | |  | | (_| | | | | (_| | (_) |
@@ -46,18 +53,36 @@ else:
 mangocore.core_selftest(linux)
 os.chdir('..')
 clrslo()
-print("")
-print("Welcome to Mango!")
-print("1} Unpack .whl file")
-print("2} Prepare code")
-print("3} Create MangoScript")
-print("4} Exit")
-mch = input("")
-if mch == "1":
-    verbose = True
-    mangocore.core_unzip(linux,verbose)
+try:
+    if run_var == 1 or 2:
+        mch = run_var
+    else:
+        print("Invalid choice")
+        time.sleep(1)
+        exit()
+except:
     print("")
-    path_copy = input("Enter absolute path of code: ")
+    print("Welcome to Mango!")
+    print("1} Unpack .whl file")
+    print("2} Prepare code")
+    print("3} Create MangoScript")
+    print("4} Exit")
+    mch = input("")
+if mch == "1":
+    try:
+        verbose = verb
+    except:
+        verbose = False
+    try:
+        termpath = path_whl
+    except:
+        termpath = ""
+    mangocore.core_unzip(linux,verbose,termpath)
+    print("")
+    try:
+        path_copy = path_out
+    except:
+        path_copy = input("Enter absolute path of code: ")
     if len(path_copy) == 0:
         print("No path given.")
         print("Job successful.")
@@ -148,8 +173,12 @@ if mch == "1":
             except:
                 pass
         mch = "2"
+        codedir = os.getcwd()
 if mch == "2":
-    codedir = input("Enter absolute path of code:")
+    try:
+        os.chdir(codedir)
+    except:
+        codedir = input("Enter absolute path of code:")
     cu_dr = os.getcwd()
     try:
         os.chdir(codedir)
