@@ -1,4 +1,4 @@
-###MANGO-AUTO-0.0.1.2####
+###MANGO-AUTO-0.0.1.4####
 import os
 import sys
 import time
@@ -7,16 +7,45 @@ import shutil
 import glob
 try:
     run_var = sys.argv[1]
+except:
+    run_var = ""
+    term = False
+try:
     path_whl = sys.argv[2]
+except:
+    path_whl = ""
+    pass
+try:
     path_out = sys.argv[3]
     verb = sys.argv[4]
     term = True
 except:
-    term = False
     pass
+if run_var.lower() == "help":
+    if path_whl.lower() == "all":
+        print("Mango terminal help")
+        print("Usage: mango.py <choice> <wheel dir> <code dir> <verbose [True/False]>")
+        exit()
+    if path_whl.lower() == "choice":
+        print("<choice> :: Which function to call. 1: Prepare wheel. 2: Prepare code.")
+        exit()
+    if path_whl.lower() == "error":
+        try:
+            with open("Error_Code_Lookup.txt" , 'r') as errors:
+                x = errors.read()
+                errors.close()
+            print(x)
+            exit()
+        except:
+            print("Refer to github page.")
+            exit()
+    else:
+        print("Invalid help topic.")
+        print("Usage: help <all / choice / error>")
+        exit()
 title='''
   __  __                         
- |  \/  |Development 1015180041                   
+ |  \/  |Development 1015180046                   
  | \  / | __ _ _ __   __ _  ___  
  | |\/| |/ _` | '_ \ / _` |/ _ \ 
  | |  | | (_| | | | | (_| | (_) |
@@ -25,6 +54,7 @@ title='''
  |________________________| BET
 '''
 def clrslo():
+    input()
     import platform
     import os
     if not "Windows" in (platform.platform()):
