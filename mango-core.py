@@ -1,10 +1,11 @@
+'##MOD##'
 ###MANGO-CORE-0.0.1.4###
 '''
 1015180046
 '''
 def core_test():
     print("Mango Core Response Successful.")
-def core_unzip(linux,verbose):
+def core_unzip(linux,verbose,termpath):
     # Yes I know, I could've used a function for the failed import thing, but no.
     # Needlessly complex code makes it harder to clone... right?
     import time
@@ -220,7 +221,10 @@ def core_unzip(linux,verbose):
                 time.sleep(1)
                 exit()
     while True:
-        whlsource = input("Enter absolute path containing .whl: ")
+        if termpath == "":
+            whlsource = input("Enter absolute path containing .whl: ")
+        else:
+            whlsource = termpath
         if len(whlsource) == 0:
             print("Invalid Directory")
             continue
