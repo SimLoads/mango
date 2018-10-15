@@ -6,6 +6,21 @@ A python script launcher and module localizer.
 ### Mango is still in heavy development, and while many of the features are in place in the code, they may not actually work.
 ### Please bear with me, I'm working to fix all of the issues you may have with Mango.
 
+## Using Mango
+Mango has a set way of working. Here's how to use it.
+
+
+1: Install mango using mango-installer.py (*DON'T TRY TO INSTALL MANUALLY. IT WON'T WORK.*). The installer will do all the work for you, and ensure all the tools work together. If you're working on a machine that isn't yours, use Restricted Access Install to ensure Mango will work. An option is also available to enable modification of the core. 
+
+
+2: Launch mango.py and choose "Unpack .whl file". First, enter the directory of the wheel. If there is multiple wheels, Mango will prompt you to choose one. This will create a temporary folder with the unpacked wheel. 
+
+
+3: Mango will then ask for another directory. Enter the directory containing the python file you want to append. (*Note, Mango will not be able to append the python file if the module unpack is in a different folder. Ensure the python file and the unpack are in the same directory.*) In the target directory, you should now see a folder with the wheel name and a text file called "pkgs*N*.mgs".
+
+
+4: Mango will now append the python file in the chosen directory with a string that imports the wheel file locally, all without the need for pip. If there are multiple python files, Mango will prompt you to choose one. The procedure is now finished. If you need to append multiple python files, run mango.py again and choose "Prepare code". Enter the same directory at the prompt and choose another python file to append.
+
 # No More Missing Modules!
 Mango uses raw .whl files for modules and appends some code at the top of your script to allow it to find the modules. Running code on machines that aren't yours couldn't be easier. Since Mango only uses modules that are pre packaged with Python, installation is simple and very possible on other machines, and allows your program to use whatever modules you want on a machine that you may not be able to install them on ordinarily. 
 ### For Example...
