@@ -1,4 +1,4 @@
-MANGO
+MANGOCORE
 
 [0cMg]
  - Failed to find Mangotools - The folder that mango's tools are in couldn't be found. Try reinstalling Mango.
@@ -36,3 +36,19 @@ MANGO
  - Failed to append - Could not append import function to Python file. Try again or choose another Python file. Working on a fix.
 [2cSt]
  - Self test failed - Triggered by no internet connection. Mango will continue to function, but Mango is just letting you know it doesn't work. 
+
+
+MANGO
+
+[0aFs]
+ - Failed to import mangotools - There was a syntax error in one of the tools. If you've been editing a tool, try resetting it.
+[0aFi]
+ - Failed to import mangotools - One of the tools doesn't exist. Try reinstalling Mango.
+[1aFo]
+ - Failed to find output file - Mango failed to copy the package correctly. Try again or manually copy 'output_temp' to 'output_final' in mangotools.
+[1aFc]
+ - Failed to copy output - Usually triggered by an old output not being deleted. Try manually deleting 'output_temp'.
+[1aFm]
+ - Failed to move package - Couldn't create a folder under the package name. Try deleting the folder with the package name and trying again.
+[2aNw]
+ - No .whl unpack found - No package was found in the code directory. Ensure the wheel was unpacked into that folder.
