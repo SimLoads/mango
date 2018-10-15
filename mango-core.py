@@ -1,6 +1,7 @@
-###MANGO-CORE-0.0.1.2###
+'##MOD##'
+###MANGO-CORE-0.0.1.4###
 '''
-1012180041
+1012180046
 '''
 def core_test():
     print("Mango Core Response Successful.")
@@ -280,9 +281,14 @@ def core_unzip(linux,verbose):
         try:
             shutil.copytree('output_temp', tempmove)
         except:
-            print("Failed to complete unzip [0cDm]")
-            time.sleep(1)
-            exit()
+            try:
+                shutil.rmtree(tempmove)
+                shutil.copytree('output_temp', tempmove)
+            except:
+                print("Failed to complete unzip [0cDm]")
+                time.sleep(1)
+                exit()
+            pass
         os.chdir(currentdir)
         break
     if verbose == True:
@@ -309,22 +315,25 @@ def core_unzip(linux,verbose):
         if os.path.exists("output_final"):
             print("Output from last job still exists.")
             print("Will be overwritten.")
-            if linux == False:
-                os.system("rmdir /S /Q output_final")
+            shutil.rmtree('output_final', ignore_errors=True)
         try:
             shutil.copytree("output_temp", movedir)
         except:
-            print("Unzip failed [0cMd]. Please try again.")
-            time.sleep(1)
-            exit()
+            try:
+                shutil.rmtree(movedir, ignore_errors=True)
+                shutil.copytree("output_temp", movedir)
+            except:
+                print("Unzip failed [0cMd]. Please try again.")
+                time.sleep(1)
+                exit()
+            pass
         if verbose == True:
             print("Move successful.")
             print("Attempting to remove temp...")
         try:
-            if linux == False:
-                os.chdir("mangotools")
-                os.system("rmdir /S /Qoutput_temp")
-                os.chdir('..')
+            os.chdir("mangotools")
+            shutil.rmtree("output_temp", ignore_errors=True)
+            os.chdir('..')
         except:
             print("Failed to remove temp file. [0cRm]")
             print("May cause future errors.")
