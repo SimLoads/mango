@@ -1,4 +1,4 @@
-###MANGO-AUTO-0.0.1.6####
+###MANGO-AUTO-0.0.1.8####
 import os
 import sys
 import time
@@ -45,7 +45,7 @@ if run_var.lower() == "help":
         exit()
 title='''
   __  __                         
- |  \/  |Development 1015180046                   
+ |  \/  |Development 10151800451
  | \  / | __ _ _ __   __ _  ___  
  | |\/| |/ _` | '_ \ / _` |/ _ \ 
  | |  | | (_| | | | | (_| | (_) |
@@ -92,7 +92,10 @@ if term == False:
     clrslo()
 menu = True
 try:
-    if run_var < 3:
+    if run_var == "1":
+        mch = run_var
+        menu = False
+    if run_var == "2":
         mch = run_var
         menu = False
     else:
