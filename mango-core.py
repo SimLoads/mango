@@ -1,7 +1,6 @@
-'##MOD##'
-###MANGO-CORE-0.0.1.4###
+###MANGO-CORE-0.0.1.6###
 '''
-1015180046
+1015180051
 '''
 def core_test():
     print("Mango Core Response Successful.")
@@ -431,24 +430,35 @@ def core_codeprepare(codedir,verbose,linux,source):
         time.sleep(1)
         exit()
     if len(pyfiles) > 1:
-        print("Multiple .py files found!")
+        temppyfiles = []
         for number, letter in enumerate(pyfiles):
-            trnu = number + 1
-            trnus = str(trnu)
-            print(trnus + ":", letter)
-        while True:
-            pyfile_choice = input("Select file to append: ")
-            try:
-                pyfile_choice = int(pyfile_choice)
-                if verbose == True:
-                    print("Converted input")
-                pyc_c = (pyfile_choice - 1)
-                pyc = pyfiles[pyc_c]
-                if verbose == True:
-                    print("Set file variable")
-                break
-            except:
-                print("Invalid choice.")
+            if 'mango' in letter:
+                continue
+            temppyfiles.append(letter)
+        if len(temppyfiles) > 1:
+            print("Multiple .py files found!")
+            for number, letter in enumerate(pyfiles):
+                trnu = number + 1
+                trnus = str(trnu)
+                print(trnus + ":", letter)
+            while True:
+                pyfile_choice = input("Select file to append: ")
+                try:
+                    pyfile_choice = int(pyfile_choice)
+                    if verbose == True:
+                        print("Converted input")
+                    pyc_c = (pyfile_choice - 1)
+                    pyc = pyfiles[pyc_c]
+                    if verbose == True:
+                        print("Set file variable")
+                    break
+                except:
+                    print("Invalid choice.")
+        if len(temppyfiles) == 0:
+            print("No .py files found. [1cNp]")
+            time.sleep(1)
+            exit()
+        pyc = temppyfiles[0]
     else:
         pyc = pyfiles[0]
     print("Appending file " + pyc)
