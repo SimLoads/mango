@@ -1,4 +1,4 @@
-###MANGO-AUTO-0.0.1.4####
+###MANGO-AUTO-0.0.1.6####
 import os
 import sys
 import time
@@ -71,8 +71,12 @@ try:
     sys.path.insert(0, 'mangotools')
     os.chdir('mangotools')
     from mangotools import mangoconfig
-    from mangotools import mangocore
-except:
+    from mangotools import mangocores
+except SyntaxError:
+    print("Failed to import mangotools [0aFs]")
+    print("Ensure no tools have been edited incorrectly.")
+    time.sleep(1)
+except ImportError:
     print("Failed to import mangotools [0aFi]")
     print("Ensure mango was installed properly.")
     time.sleep(1)
@@ -86,14 +90,18 @@ mangocore.core_selftest(linux)
 os.chdir('..')
 if term == False:
     clrslo()
+menu = True
 try:
-    if run_var == 1 or 2:
+    if run_var < 3:
         mch = run_var
+        menu = False
     else:
         print("Invalid choice")
         time.sleep(1)
         exit()
 except:
+    pass
+if menu == True:
     print("")
     print("Welcome to Mango!")
     print("1} Unpack .whl file")
