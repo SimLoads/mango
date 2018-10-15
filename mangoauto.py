@@ -1,4 +1,4 @@
-###MANGO-AUTO-0.0.1.8####
+###MANGO-AUTO-0.0.2.0####
 import os
 import sys
 import time
@@ -92,18 +92,18 @@ if term == False:
     clrslo()
 menu = True
 try:
+    y = str(run_var)
+    running = True
+    pass
+except:
+    running = False
+if running == True:
     if run_var == "1":
         mch = run_var
         menu = False
     if run_var == "2":
         mch = run_var
         menu = False
-    else:
-        print("Invalid choice")
-        time.sleep(1)
-        exit()
-except:
-    pass
 if menu == True:
     print("")
     print("Welcome to Mango!")
