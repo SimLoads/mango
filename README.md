@@ -6,6 +6,14 @@ A python script launcher and module localizer.
 ### Mango is still in heavy development, and while many of the features are in place in the code, they may not actually work.
 ### Please bear with me, I'm working to fix all of the issues you may have with Mango.
 
+
+## Current News:
+Recent testing has proved that Mango doesn't really work with Python 3.4 and most likely below. This is caused by some problems with directory variables, and they're being worked on. 
+
+Direct terminal input is now available! See below for correct usage.
+
+Beware of entering incorrect directories - Mango is now configured to delete targets much more agressively. While it shouldn't affect any of your files, be warned that anything in _any_ output_temp or output_final will be completely removed. 
+
 ## Using Mango
 Mango has a set way of working. Here's how to use it.
 
