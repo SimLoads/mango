@@ -71,7 +71,7 @@ try:
     sys.path.insert(0, 'mangotools')
     os.chdir('mangotools')
     from mangotools import mangoconfig
-    from mangotools import mangocores
+    from mangotools import mangocore
 except SyntaxError:
     print("Failed to import mangotools [0aFs]")
     print("Ensure no tools have been edited incorrectly.")
