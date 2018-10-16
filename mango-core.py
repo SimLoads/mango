@@ -1,6 +1,6 @@
-###MANGO-CORE-0.0.1.6###
+###MANGO-CORE-0.0.1.8###
 '''
-1015180051
+1016180056
 '''
 def core_test():
     print("Mango Core Response Successful.")
@@ -200,12 +200,18 @@ def core_unzip(linux,verbose,termpath):
                     exit()
                 try:
                     with open(pys[0], 'a') as a_f:
+                        a_F.write("print('Mango Import Begin')")
+                        if verbose == True:
+                            print("Wrote Mango status print")
                         a_f.write("import sys\n")
                         if verbose == True:
                             print("Wrote import sys")
                         a_f.write(string)
                         if verbose == True:
                             print("Wrote import package string")
+                        a_f.write("print('Mango Import Success')")
+                        if verbose == True:
+                            print("Wrote Mango status print")
                         a_f.write(contents)
                         if verbose == True:
                             print("Rewrote contents")
@@ -332,14 +338,6 @@ def core_unzip(linux,verbose,termpath):
         if verbose == True:
             print("Move successful.")
             print("Attempting to remove temp...")
-        try:
-            os.chdir("mangotools")
-            shutil.rmtree("output_temp", ignore_errors=True)
-            os.chdir('..')
-        except:
-            print("Failed to remove temp file. [0cRm]")
-            print("May cause future errors.")
-            print("Manual removal recommended.")
         print("Finished unzipping.")
     else:
         print("Unzip failed [0cNf]. Please try again.")
@@ -387,11 +385,6 @@ def core_codeprepare(codedir,verbose,linux,source):
     import glob
     import re
     import shutil
-    if linux == True:
-        print("Linux mode still in development.")
-        print("Please try again soon.")
-        time.sleep(1)
-        exit()
     if verbose == True:
         print("Mango core code prepare ready.")
     if verbose == True:
@@ -427,7 +420,8 @@ def core_codeprepare(codedir,verbose,linux,source):
         print("Scanned for .py files")
     if len(pyfiles) == 0:
         print("No .py files found. [1cNp]")
-        time.sleep(1)
+        print("Ensure there are .py files in the chosen directory,\nthen run 'Prepare Code' on the directory again.")
+        time.sleep(5)
         exit()
     if len(pyfiles) > 1:
         temppyfiles = []
