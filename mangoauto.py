@@ -1,4 +1,4 @@
-###MANGO-AUTO-0.0.2.0####
+###MANGO-AUTO-0.0.2.2####
 import os
 import sys
 import time
@@ -45,7 +45,7 @@ if run_var.lower() == "help":
         exit()
 title='''
   __  __                         
- |  \/  |Development 10151800451
+ |  \/  |Development 1016180056
  | \  / | __ _ _ __   __ _  ___  
  | |\/| |/ _` | '_ \ / _` |/ _ \ 
  | |  | | (_| | | | | (_| | (_) |
@@ -217,6 +217,12 @@ if mch == "1":
                 shutil.rmtree("output_final", ignore_errors=True)
             except:
                 pass
+        try:
+            os.chdir("mangotools")
+            shutil.rmtree("output_temp", ignore_errors=True)
+            os.chdir('..')
+        except:
+            pass
         mch = "2"
         codedir = os.getcwd()
 if mch == "2":
