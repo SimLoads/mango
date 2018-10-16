@@ -51,7 +51,7 @@ Let's say your code is:
 import foo
 foo(x)
 ```
-Now, 'foo' doesn't come with python, but is very clearly vitally important to your code. If you need to run this on a machine that isn't yours, you wouldn't be able to, as you'd need sudo / administrator privelages to install 'foo'. With Mango, all you need is your script, Mango, and the raw foo.whl file you can download on your own PC. First, Mango will append this to the top of your script:
+Now, 'foo' doesn't come with python, but is very clearly vitally important to your code. If you need to run this on a machine that isn't yours, you wouldn't be able to, as you'd need sudo / administrator privelages to install 'foo'. With Mango, all you need is your script, Mango, and the raw foo.whl file you can download from the internet. First, Mango will append this to the top of your script:
 ```
 import sys
 sys.path.insert(0, "path_to_modules")
