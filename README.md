@@ -8,6 +8,11 @@ A python script launcher and module localizer.
 
 
 ## Current News:
+
+10/16/18
+Why does this repository have over 2,000,000 additions and deletions, you might be asking? That is down to the fact that I accidentally pushed my entire working directory to github, which included every file in Mango ever made, everything that PyGame comes with like 3 times over, and Pycryptodomex countless times. I then had to hurridly delete all of these, so that accounted for just over 4,000,000 total changes. Oops.
+
+10/15/18
 Recent testing has proved that Mango doesn't really work with Python 3.4 and most likely below. This is caused by some problems with directory variables, and they're being worked on. 
 
 Direct terminal input is now available! See below for correct usage.
