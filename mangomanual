@@ -27,7 +27,8 @@ def whl_prep():
     else:
         linux = False
     verbose = "RAI"
-    mangocore.core_unzip(linux,verbose)
+    termpath = ""
+    mangocore.core_unzip(linux,verbose,termpath)
 try:
     with open('__init.py__', 'w') as init:
         init.write('')
