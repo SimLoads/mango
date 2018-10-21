@@ -1,4 +1,4 @@
-###MANGO-AUTO-0.0.2.2####
+###MANGO-AUTO-0.0.2.4####
 import os
 import sys
 import time
@@ -7,6 +7,7 @@ import shutil
 import glob
 try:
     run_var = sys.argv[1]
+    term = True
 except:
     run_var = ""
     term = False
@@ -17,8 +18,10 @@ except:
     pass
 try:
     path_out = sys.argv[3]
+except:
+    pass
+try:
     verb = sys.argv[4]
-    term = True
 except:
     pass
 if run_var.lower() == "help":
@@ -45,7 +48,7 @@ if run_var.lower() == "help":
         exit()
 title='''
   __  __                         
- |  \/  |Development 1016180056
+ |  \/  |Development 1021180061
  | \  / | __ _ _ __   __ _  ___  
  | |\/| |/ _` | '_ \ / _` |/ _ \ 
  | |  | | (_| | | | | (_| | (_) |
@@ -76,6 +79,7 @@ except SyntaxError:
     print("Failed to import mangotools [0aFs]")
     print("Ensure no tools have been edited incorrectly.")
     time.sleep(1)
+    exit()
 except ImportError:
     print("Failed to import mangotools [0aFi]")
     print("Ensure mango was installed properly.")
@@ -116,7 +120,7 @@ if mch == "1":
     try:
         verbose = verb
     except:
-        verbose = False
+        verbose = True
     try:
         termpath = path_whl
     except:
@@ -127,12 +131,12 @@ if mch == "1":
     try:
         path_copy = path_out
     except:
-        path_copy = input("Enter absolute path of code: ")
-    if len(path_copy) == 0:
-        print("No path given.")
-        print("Job successful.")
-        exit()
-    else:
+        while True:
+            path_copy = input("Enter absolute path of code: ")
+            if len(path_copy) == 0:
+                print("No path given.")
+                continue
+            break
         currentpath = os.getcwd()
         try:
             os.chdir(path_copy)
@@ -150,15 +154,19 @@ if mch == "1":
             if not cont_j == "Y":
                 exit()
         os.chdir(currentpath)
-        if "mangotools" in os.getcwd():
-            os.chdir('..')
-        try:
-            os.chdir("output_final")
-        except:
-            print("Failed to find output file. [1aFo]")
+        if not "mangotools" in os.getcwd():
+            try:
+                os.chdir('mangotools')
+            except:
+                time.sleep(1)
+                exit()
+        if os.path.exists('output_temp'):
+            os.chdir('output_temp')
+            out_dir_current = os.getcwd()
+        else:
+            print("Unknown error")
             time.sleep(1)
             exit()
-        out_dir_current = os.getcwd()
         os.chdir(path_copy)
         if os.path.exists("output_temp"):
             print("Output_temp already exists.")
@@ -172,12 +180,17 @@ if mch == "1":
                     time.sleep(1)
                     exit()
                 pass
+        time.sleep(1)
         try:
             shutil.copytree(out_dir_current, (os.getcwd() + "\\output_temp"))
         except:
-            print("Failed to copy output [1aFc]")
-            time.sleep(1)
-            exit()
+            try:
+                os.mkdir('output_temp')
+                shutil.copytree(out_dir_current, (os.getcwd() + "\\output_temp"))
+            except:
+                print("Failed to copy output [1aFc]")
+                time.sleep(1)
+                exit()
         print("Copy successful.")
         os.chdir('output_temp')
         in_output = glob.glob("*")
@@ -220,6 +233,10 @@ if mch == "1":
         try:
             os.chdir("mangotools")
             shutil.rmtree("output_temp", ignore_errors=True)
+            try:
+                shutil.rmtree((glob.glob("*.whl")))
+            except:
+                pass
             os.chdir('..')
         except:
             pass
