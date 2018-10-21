@@ -44,8 +44,8 @@ MANGO
  - Failed to import mangotools - There was a syntax error in one of the tools. If you've been editing a tool, try resetting it.
 [0aFi]
  - Failed to import mangotools - One of the tools doesn't exist. Try reinstalling Mango.
-[1aFo]
- - Failed to find output file - Mango failed to copy the package correctly. Try again or manually copy 'output_temp' to 'output_final' in mangotools.
+[0aUe]
+ - Failed to import mangotools - An unspecified error has occured during import. Try reinstalling Mango.
 [1aFc]
  - Failed to copy output - Usually triggered by an old output not being deleted. Try manually deleting 'output_temp'.
 [1aFm]
