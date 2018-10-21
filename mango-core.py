@@ -353,7 +353,6 @@ def core_selftest(linux):
     similarconv = float(similar * 100)
     similarconv = int(similarconv)
     print("Test returned a " + str(similarconv) + "% Similarity")
-    input()
     if similar < 0.91:
         print("Modification detected!")
         print("Resetting Core...")
