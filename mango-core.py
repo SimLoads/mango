@@ -1,4 +1,3 @@
-'##MOD##'
 ###MANGO-CORE-0.0.2.0###
 ver = '1021180061'
 def core_test():
