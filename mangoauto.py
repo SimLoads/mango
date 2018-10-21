@@ -127,7 +127,7 @@ if mch == "1":
         termpath = ""
     print("Working...")
     mangocore.core_unzip(linux,verbose,termpath)
-    print("sss")
+    print("")
     try:
         path_copy = path_out
     except:
