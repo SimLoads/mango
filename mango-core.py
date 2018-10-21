@@ -1,5 +1,5 @@
-###MANGO-CORE-0.0.2.0###
-ver = '1021180061'
+###MANGO-CORE-0.0.2.2###
+ver = '1021180066'
 def core_test():
     print("Mango Core Response Successful.")
 def core_unzip(linux,verbose,termpath):
@@ -350,7 +350,10 @@ def core_selftest(linux):
         print("Self test failed. [2cSt]")
         return()
     similar = SequenceMatcher(None, master, core_content).ratio()
-    print("Test returned a " + str(similar) + "% Similarity")
+    similarconv = float(similar * 100)
+    similarconv = int(similarconv)
+    print("Test returned a " + str(similarconv) + "% Similarity")
+    input()
     if similar < 0.91:
         print("Modification detected!")
         print("Resetting Core...")
