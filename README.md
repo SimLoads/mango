@@ -9,6 +9,12 @@ A python script launcher and module localizer.
 
 ## Current News:
 
+10/21/18
+
+Today I discovered how bad mangocore actually is at doing it's job. Sure, it does it, but it's trash. Huge overhaul has been made, hopefully it helps fix a few errors with directory changes. Also I think it reduces the size of the file a bit but don't quote me on that one.
+
+Also I added a little thing to the append function that prints "Modified with Mango" when you start any file that has been modified. Plug myself much. That'll be something you can change with the configuration file, when I get around to making that a reality. 
+
 10/18/18
 
 Hello all, still working on mango, I just have some schoolwork to complete for now, so updates may slow slightly. Feel free to dump any issues because I'll get right on them if any pop up, but general updates may be a little slower now :)
