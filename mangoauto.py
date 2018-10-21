@@ -48,7 +48,7 @@ if run_var.lower() == "help":
         exit()
 title='''
   __  __                         
- |  \/  |Development 1021180061
+ |  \/  |Development 1021180066
  | \  / | __ _ _ __   __ _  ___  
  | |\/| |/ _` | '_ \ / _` |/ _ \ 
  | |  | | (_| | | | | (_| | (_) |
@@ -83,6 +83,11 @@ except SyntaxError:
 except ImportError:
     print("Failed to import mangotools [0aFi]")
     print("Ensure mango was installed properly.")
+    time.sleep(1)
+    exit()
+except:
+    print("Failed to import mangotools [0aUe]")
+    print("Unspecified error.")
     time.sleep(1)
     exit()
 global linux
