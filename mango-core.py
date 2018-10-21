@@ -1,7 +1,6 @@
-###MANGO-CORE-0.0.1.8###
-'''
-1016180056
-'''
+'##MOD##'
+###MANGO-CORE-0.0.2.0###
+ver = '1021180061'
 def core_test():
     print("Mango Core Response Successful.")
 def core_unzip(linux,verbose,termpath):
@@ -260,20 +259,37 @@ def core_unzip(linux,verbose,termpath):
         if len(wheels) == 1:
             unzipwhl = wheels[0]
         try:
+            shutil.copy2(unzipwhl, currentdir)
+        except:
+            print("Copy failed. [0cCf]")
+            time.sleep(1)
+            continue
+        if verbose == True:
+            print("Copied wheel to mangotools")
+        os.chdir(currentdir)
+        if verbose == True:
+            print("Moved to mangotools")
+        try:
             os.rename(unzipwhl, (unzipwhl + ".zip"))
+            if verbose == True:
+                print("Renamed wheel")
         except:
             print("Failed to rename wheel. [0cFr]")
             time.sleep(1)
             continue
+        if verbose == True:
+            print("Attempting to unzip...")
         try:
             whluzp = zipfile.ZipFile((unzipwhl + ".zip"), 'r')
-            os.chdir(currentdir)
-            tempmove = (re.escape(os.getcwd()) + "\\\\output_temp")
-            if os.path.exists("output_temp"):
-                print("Output from last job still exists.")
-                print("Will be overwritten.")
-            os.chdir(whlsource)
+            if verbose == True:
+                print("Selected zip")
+            if not os.path.exists('output_temp'):
+                os.mkdir('output_temp')
+                if verbose == True:
+                    print("Created output_temp")
             whluzp.extractall("output_temp")
+            if verbose == True:
+                print("Unzipped.")
             whluzp.close()
         except:
             print("Unzip Failed. [0cUf]")
@@ -281,23 +297,13 @@ def core_unzip(linux,verbose,termpath):
             continue
         try:
             os.rename((unzipwhl + ".zip"), unzipwhl)
+            if verbose == True:
+                print("Renamed wheel")
         except:
             print("Failed to rename wheel. [0cFr]")
             time.sleep(1)
             continue
         time.sleep(1)
-        try:
-            shutil.copytree('output_temp', tempmove)
-        except:
-            try:
-                shutil.rmtree(tempmove)
-                shutil.copytree('output_temp', tempmove)
-            except:
-                print("Failed to complete unzip [0cDm]")
-                time.sleep(1)
-                exit()
-            pass
-        os.chdir(currentdir)
         break
     if verbose == True:
         print("Unzip complete.")
@@ -318,26 +324,6 @@ def core_unzip(linux,verbose,termpath):
         os.chdir('..')
         if verbose == True:
             print("Moved back out of output_temp")
-        if verbose == True:
-            print("Attempting to move files...")
-        if os.path.exists("output_final"):
-            print("Output from last job still exists.")
-            print("Will be overwritten.")
-            shutil.rmtree('output_final', ignore_errors=True)
-        try:
-            shutil.copytree("output_temp", movedir)
-        except:
-            try:
-                shutil.rmtree(movedir, ignore_errors=True)
-                shutil.copytree("output_temp", movedir)
-            except:
-                print("Unzip failed [0cMd]. Please try again.")
-                time.sleep(1)
-                exit()
-            pass
-        if verbose == True:
-            print("Move successful.")
-            print("Attempting to remove temp...")
         print("Finished unzipping.")
     else:
         print("Unzip failed [0cNf]. Please try again.")
@@ -353,7 +339,7 @@ def core_selftest(linux):
         core.close()
     if ("'##MOD##'") in core_mod_query[0]:
         print("Core self test disabled.")
-        return ("")
+        return()
     import urllib.request
     try:
         update = urllib.request.Request('https://raw.githubusercontent.com/SimLoads/mango/mango-tools/mango-core.py')
@@ -363,8 +349,9 @@ def core_selftest(linux):
     except:
         print("Failed to connect.")
         print("Self test failed. [2cSt]")
-        return ("")
+        return()
     similar = SequenceMatcher(None, master, core_content).ratio()
+    print("Test returned a " + str(similar) + "% Similarity")
     if similar < 0.91:
         print("Modification detected!")
         print("Resetting Core...")
@@ -377,7 +364,6 @@ def core_selftest(linux):
             exit()
     else:
         print("Core self test complete.")
-        return ("")
 def core_codeprepare(codedir,verbose,linux,source):
     import os
     import sys
@@ -478,7 +464,11 @@ def core_codeprepare(codedir,verbose,linux,source):
         time.sleep(1)
         exit()
     try:
+        printer = ('print("Modified using Mango ' + ver + '")\n')
         with open(pyc, 'a') as a_f:
+            a_f.write(printer)
+            if verbose == True:
+                print("Wrote printer")
             a_f.write("import sys\n")
             if verbose == True:
                 print("Wrote import sys")
@@ -495,3 +485,12 @@ def core_codeprepare(codedir,verbose,linux,source):
         exit()
     print("Append successful.")
     print("File ready.")
+    print("Cleaning up...")
+    try:
+        if os.path.exists("pkg1.mgs"):
+            print("Deleting pointer...")
+            os.remove('pkg1.mgs')
+        else:
+            pass
+    except:
+        pass
