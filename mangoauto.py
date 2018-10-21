@@ -85,11 +85,6 @@ except ImportError:
     print("Ensure mango was installed properly.")
     time.sleep(1)
     exit()
-except:
-    print("Failed to import mangotools [0aUe]")
-    print("Unspecified error.")
-    time.sleep(1)
-    exit()
 global linux
 if "Windows" in platform.platform():
     linux = False
@@ -132,7 +127,7 @@ if mch == "1":
         termpath = ""
     print("Working...")
     mangocore.core_unzip(linux,verbose,termpath)
-    print("")
+    print("sss")
     try:
         path_copy = path_out
     except:
@@ -142,111 +137,111 @@ if mch == "1":
                 print("No path given.")
                 continue
             break
-        currentpath = os.getcwd()
+    currentpath = os.getcwd()
+    try:
+        os.chdir(path_copy)
+    except:
+        print("Invalid path given.")
+    if len(glob.glob("*.py")) == 0:
+        print("No .py files found.")
+        cont_j = input("Continue job? [y/n")
+        #Q: Why didn't you use an OR statement?
+        #A: Because for some reason it never works
+        # And returns false regardless if the input is
+        # x OR y
+        if not cont_j == "y":
+            exit()
+        if not cont_j == "Y":
+            exit()
+    os.chdir(currentpath)
+    if not "mangotools" in os.getcwd():
         try:
-            os.chdir(path_copy)
+            os.chdir('mangotools')
         except:
-            print("Invalid path given.")
-        if len(glob.glob("*.py")) == 0:
-            print("No .py files found.")
-            cont_j = input("Continue job? [y/n")
-            #Q: Why didn't you use an OR statement?
-            #A: Because for some reason it never works
-            # And returns false regardless if the input is
-            # x OR y
-            if not cont_j == "y":
-                exit()
-            if not cont_j == "Y":
-                exit()
-        os.chdir(currentpath)
-        if not "mangotools" in os.getcwd():
-            try:
-                os.chdir('mangotools')
-            except:
-                time.sleep(1)
-                exit()
-        if os.path.exists('output_temp'):
-            os.chdir('output_temp')
-            out_dir_current = os.getcwd()
-        else:
-            print("Unknown error")
             time.sleep(1)
             exit()
-        os.chdir(path_copy)
-        if os.path.exists("output_temp"):
-            print("Output_temp already exists.")
-            print("Will be overwritten.")
-            try:
-                shutil.rmtree('output_temp', ignore_errors=True)
-            except:
-                if os.path.exists("output_temp"):
-                    print("Failed to delete.")
-                    print("Please delete manually\nand retry.")
-                    time.sleep(1)
-                    exit()
-                pass
+    if os.path.exists('output_temp'):
+        os.chdir('output_temp')
+        out_dir_current = os.getcwd()
+    else:
+        print("Unknown error")
         time.sleep(1)
+        exit()
+    os.chdir(path_copy)
+    if os.path.exists("output_temp"):
+        print("Output_temp already exists.")
+        print("Will be overwritten.")
         try:
+            shutil.rmtree('output_temp', ignore_errors=True)
+        except:
+            if os.path.exists("output_temp"):
+                print("Failed to delete.")
+                print("Please delete manually\nand retry.")
+                time.sleep(1)
+                exit()
+            pass
+    time.sleep(1)
+    try:
+        shutil.copytree(out_dir_current, (os.getcwd() + "\\output_temp"))
+    except:
+        try:
+            os.mkdir('output_temp')
             shutil.copytree(out_dir_current, (os.getcwd() + "\\output_temp"))
         except:
-            try:
-                os.mkdir('output_temp')
-                shutil.copytree(out_dir_current, (os.getcwd() + "\\output_temp"))
-            except:
-                print("Failed to copy output [1aFc]")
-                time.sleep(1)
-                exit()
-        print("Copy successful.")
-        os.chdir('output_temp')
-        in_output = glob.glob("*")
-        if verbose == True:
-            print("Scanned for files...")
-        if "dist-info" in in_output[0]:
-            name = in_output[1]
-        else:
-            name = in_output[0]
-        print("Found package: " + name)
-        os.chdir('..')
+            print("Failed to copy output [1aFc]")
+            time.sleep(1)
+            exit()
+    print("Copy successful.")
+    os.chdir('output_temp')
+    in_output = glob.glob("*")
+    if verbose == True:
+        print("Scanned for files...")
+    if "dist-info" in in_output[0]:
+        name = in_output[1]
+    else:
+        name = in_output[0]
+    print("Found package: " + name)
+    os.chdir('..')
+    try:
+        shutil.copytree(("output_temp//" + name), ((os.getcwd()) + "\\" + name))
+    except:
         try:
+            shutil.rmtree(name, ignore_errors=True)
             shutil.copytree(("output_temp//" + name), ((os.getcwd()) + "\\" + name))
         except:
-            try:
-                shutil.rmtree(name, ignore_errors=True)
-                shutil.copytree(("output_temp//" + name), ((os.getcwd()) + "\\" + name))
-            except:
-                print("Failed to move package. [1aFm]")
-                print("Please remove '" + name + "' manually.")
-                time.sleep(1)
-                exit()
-        print("Job successful.")
-        pkgpointers = glob.glob("*.mgs")
-        pkgnm = ("pkg" + str((len(pkgpointers) + 1)) + ".mgs")
-        with open(pkgnm, 'w') as pointer:
-            pointer.write(((os.getcwd()) + "\\" + name))
-            pointer.close()
-        print("Cleaning up...")
-        if os.path.exists("output_temp"):
-            try:
-                shutil.rmtree('output_temp', ignore_errors=True)
-            except:
-                pass
-        if os.path.exists("output_final"):
-            try:
-                shutil.rmtree("output_final", ignore_errors=True)
-            except:
-                pass
+            print("Failed to move package. [1aFm]")
+            print("Please remove '" + name + "' manually.")
+            time.sleep(1)
+            exit()
+    print("Job successful.")
+    pkgpointers = glob.glob("*.mgs")
+    pkgnm = ("pkg" + str((len(pkgpointers) + 1)) + ".mgs")
+    with open(pkgnm, 'w') as pointer:
+        pointer.write(((os.getcwd()) + "\\" + name))
+        pointer.close()
+    print("Cleaning up...")
+    if os.path.exists("output_temp"):
         try:
-            os.chdir("mangotools")
-            shutil.rmtree("output_temp", ignore_errors=True)
-            try:
-                shutil.rmtree((glob.glob("*.whl")))
-            except:
-                pass
-            os.chdir('..')
+            shutil.rmtree('output_temp', ignore_errors=True)
         except:
             pass
-        mch = "2"
-        codedir = os.getcwd()
+    if os.path.exists("output_final"):
+        try:
+            shutil.rmtree("output_final", ignore_errors=True)
+        except:
+            pass
+    try:
+        os.chdir("mangotools")
+        shutil.rmtree("output_temp", ignore_errors=True)
+        try:
+            shutil.rmtree((glob.glob("*.whl")))
+        except:
+            pass
+        os.chdir('..')
+    except:
+        pass
+    mch = "2"
+    codedir = os.getcwd()
 if mch == "2":
     try:
         os.chdir(codedir)
