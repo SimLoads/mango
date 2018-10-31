@@ -1,9 +1,9 @@
-###MANGO-INSTALLER-0.0.0.6###
+###MANGO-INSTALLER-0.0.0.8###
 '''
 '''
 title='''
   __  __                         
- |  \/  |Development 1015180026                
+ |  \/  |Development 1031180031              
  | \  / | __ _ _ __   __ _  ___  
  | |\/| |/ _` | '_ \ / _` |/ _ \ 
  | |  | | (_| | | | | (_| | (_) |
@@ -203,9 +203,6 @@ def setup(use_title,reinstall,coremod,rai):
         print("Test failed. Restart installation.")
         time.sleep(1)
         exit()
-    if linux == True:
-        os.chdir('mangotools')
-        os.system("bash shelltools_pause.sh")
     else:
         pass
     if reinstall == True:
@@ -328,6 +325,7 @@ import time
 import urllib.request
 reinstall = False
 import platform
+import shutil
 clrs()
 if not os.path.exists("mangotools"):
     while True:
