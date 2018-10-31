@@ -1,4 +1,4 @@
-###MANGO-AUTO-0.0.2.4####
+###MANGO-AUTO-0.0.2.6####
 import os
 import sys
 import time
@@ -48,12 +48,12 @@ if run_var.lower() == "help":
         exit()
 title='''
   __  __                         
- |  \/  |Development 1021180066
+ |  \/  |Development 1031180071
  | \  / | __ _ _ __   __ _  ___  
  | |\/| |/ _` | '_ \ / _` |/ _ \ 
  | |  | | (_| | | | | (_| | (_) |
  |_|  |_|\__,_|_| |_|\__, |\___/
-  ______________________/ | V.1
+  ______________________/ | V.2
  |________________________| BET
 '''
 def clrslo():
@@ -167,32 +167,6 @@ if mch == "1":
         print("Unknown error")
         time.sleep(1)
         exit()
-    os.chdir(path_copy)
-    if os.path.exists("output_temp"):
-        print("Output_temp already exists.")
-        print("Will be overwritten.")
-        try:
-            shutil.rmtree('output_temp', ignore_errors=True)
-        except:
-            if os.path.exists("output_temp"):
-                print("Failed to delete.")
-                print("Please delete manually\nand retry.")
-                time.sleep(1)
-                exit()
-            pass
-    time.sleep(1)
-    try:
-        shutil.copytree(out_dir_current, (os.getcwd() + "\\output_temp"))
-    except:
-        try:
-            os.mkdir('output_temp')
-            shutil.copytree(out_dir_current, (os.getcwd() + "\\output_temp"))
-        except:
-            print("Failed to copy output [1aFc]")
-            time.sleep(1)
-            exit()
-    print("Copy successful.")
-    os.chdir('output_temp')
     in_output = glob.glob("*")
     if verbose == True:
         print("Scanned for files...")
@@ -201,13 +175,15 @@ if mch == "1":
     else:
         name = in_output[0]
     print("Found package: " + name)
-    os.chdir('..')
+    os.chdir(name)
+    packmove = os.getcwd()
+    os.chdir(path_copy)
     try:
-        shutil.copytree(("output_temp//" + name), ((os.getcwd()) + "\\" + name))
+        shutil.copytree(packmove, name)
     except:
         try:
             shutil.rmtree(name, ignore_errors=True)
-            shutil.copytree(("output_temp//" + name), ((os.getcwd()) + "\\" + name))
+            shutil.copytree(packmove, name)
         except:
             print("Failed to move package. [1aFm]")
             print("Please remove '" + name + "' manually.")
