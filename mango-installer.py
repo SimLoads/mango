@@ -3,12 +3,12 @@
 '''
 title='''
   __  __                         
- |  \/  |Development 1031180036              
+ |  \/  |Development 1031180041              
  | \  / | __ _ _ __   __ _  ___  
  | |\/| |/ _` | '_ \ / _` |/ _ \ 
  | |  | | (_| | | | | (_| | (_) |
  |_|  |_|\__,_|_| |_|\__, |\___/
-  ______________________/ | V.1
+  ______________________/ | V.2
  |________________________| BET
 '''
 '''
@@ -63,7 +63,10 @@ def rai_prep(coremod,linux):
         tool.close()
     print("Script created.")
     print("Launching...")
-    os.startfile("mangomanual.py")
+    try:
+        os.startfile("mangomanual.py")
+    except:
+        pass
     exit()
 def clrs():
     import platform
