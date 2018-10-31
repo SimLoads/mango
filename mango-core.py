@@ -1,5 +1,5 @@
-###MANGO-CORE-0.0.2.2###
-ver = '1021180066'
+###MANGO-CORE-0.0.2.4###
+ver = '1021180071'
 def core_test():
     print("Mango Core Response Successful.")
 def core_unzip(linux,verbose,termpath):
@@ -165,9 +165,7 @@ def core_unzip(linux,verbose,termpath):
             if len(pys) > 1:
                 templist = []
                 for number,letter in enumerate(pys):
-                    print(letter)
                     if "mango" in letter:
-                        print("memes")
                         continue
                     templist.append(letter)
                 if len(templist) == 1:
@@ -196,9 +194,10 @@ def core_unzip(linux,verbose,termpath):
                     print("Failed to remove .py file. [1cRf]")
                     time.sleep(1)
                     exit()
+                print("Appending to " + pys[0])
                 try:
                     with open(pys[0], 'a') as a_f:
-                        a_F.write("print('Mango Import Begin')")
+                        a_f.write("print('Mango Import Begin')\n")
                         if verbose == True:
                             print("Wrote Mango status print")
                         a_f.write("import sys\n")
@@ -207,7 +206,7 @@ def core_unzip(linux,verbose,termpath):
                         a_f.write(string)
                         if verbose == True:
                             print("Wrote import package string")
-                        a_f.write("print('Mango Import Success')")
+                        a_f.write("print('Mango Import Success')\n")
                         if verbose == True:
                             print("Wrote Mango status print")
                         a_f.write(contents)
