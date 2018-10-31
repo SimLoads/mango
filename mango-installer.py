@@ -3,7 +3,7 @@
 '''
 title='''
   __  __                         
- |  \/  |Development 1031180031              
+ |  \/  |Development 1031180036              
  | \  / | __ _ _ __   __ _  ___  
  | |\/| |/ _` | '_ \ / _` |/ _ \ 
  | |  | | (_| | | | | (_| | (_) |
@@ -231,6 +231,10 @@ def setup(use_title,reinstall,coremod,rai):
     launchin = input("")
     if launchin == "1":
         print("Launching...")
+        if linux == True:
+            print("Please use 'python3 mango.py'\nto launch.")
+            time.sleep(1)
+            exit()
         try:
             os.startfile("mango.py")
         except:
