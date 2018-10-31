@@ -1,6 +1,6 @@
 
 # Welcome to Mango!
-A python script launcher and module localizer. 
+A Python module localizer, allowing for packages to be installed without the need for PIP or administrator / sudo privelages.
 
 ## PLEASE NOTE
 ### Mango is still in heavy development, and while many of the features are in place in the code, they may not actually work.
