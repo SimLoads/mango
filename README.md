@@ -13,6 +13,10 @@ A Python module localizer, allowing for packages to be installed without the nee
 
 Adding linux support as we speak. I mean, making linux work. It works to some extent on Ubuntu Trusty, currently patching all the problems I can with Debian, which should theoratically iron out the bugs in Ubuntu too. More to come.
 
++ 2 hours
+
+Linux updates have been pushed, they all work fine, theoratically. I haven't had a chance to test on Windows yet, so hopefully I haven't made mango unusable on Windows while allowing Linux to work. Cross os support is difficult, cut me some slack
+
 10/21/18
 
 Today I discovered how bad mangocore actually is at doing it's job. Sure, it does it, but it's trash. Huge overhaul has been made, hopefully it helps fix a few errors with directory changes. Also I think it reduces the size of the file a bit but don't quote me on that one.
