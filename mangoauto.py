@@ -48,7 +48,7 @@ if run_var.lower() == "help":
         exit()
 title='''
   __  __                         
- |  \/  |Development 1031180071
+ |  \/  |Development 1031180076
  | \  / | __ _ _ __   __ _  ___  
  | |\/| |/ _` | '_ \ / _` |/ _ \ 
  | |  | | (_| | | | | (_| | (_) |
@@ -142,6 +142,7 @@ if mch == "1":
         os.chdir(path_copy)
     except:
         print("Invalid path given.")
+        exit()
     if len(glob.glob("*.py")) == 0:
         print("No .py files found.")
         cont_j = input("Continue job? [y/n")
