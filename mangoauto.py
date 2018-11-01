@@ -9,7 +9,7 @@ try:
     run_var = sys.argv[1]
     term = True
 except:
-    run_var = ""
+    run_var = "0"
     term = False
 try:
     path_whl = sys.argv[2]
@@ -46,9 +46,12 @@ if run_var.lower() == "help":
         print("Invalid help topic.")
         print("Usage: help <all / choice / error>")
         exit()
+if not int(run_var) < 3:
+    print("Invalid process.")
+    exit()
 title='''
   __  __                         
- |  \/  |Development 1031180076
+ |  \/  |Development 1031180081
  | \  / | __ _ _ __   __ _  ___  
  | |\/| |/ _` | '_ \ / _` |/ _ \ 
  | |  | | (_| | | | | (_| | (_) |
