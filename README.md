@@ -13,7 +13,7 @@ A Python module localizer, allowing for packages to be installed without the nee
 
 Adding linux support as we speak. I mean, making linux work. It works to some extent on Ubuntu Trusty, currently patching all the problems I can with Debian, which should theoratically iron out the bugs in Ubuntu too. More to come.
 
-+ 2 hours
+++ 2 hours
 
 Linux updates have been pushed, they all work fine, theoratically. I haven't had a chance to test on Windows yet, so hopefully I haven't made mango unusable on Windows while allowing Linux to work. Cross os support is difficult, cut me some slack
 
