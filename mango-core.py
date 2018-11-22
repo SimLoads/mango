@@ -1,5 +1,5 @@
 ###MANGO-CORE-0.0.2.6###
-ver = '1121180081'
+ver = '1121180086'
 def core_test():
     print("Mango Core Response Successful.")
 def core_unzip(linux,verbose,termpath):
@@ -228,7 +228,7 @@ def core_unzip(linux,verbose,termpath):
         else:
             whlsource = termpath
         if len(whlsource) == 0:
-            print("Invalid Directory")
+            print("Invalid Directory: " + whlsource)
             if termpath == "":
                 continue
             else:
@@ -237,7 +237,7 @@ def core_unzip(linux,verbose,termpath):
             os.chdir(whlsource)
             os.chdir(currentdir)
         except:
-            print("Invalid Directory")
+            print("Invalid Directory: " + whlsource)
             if termpath == "":
                 continue
             else:
@@ -247,7 +247,7 @@ def core_unzip(linux,verbose,termpath):
         wheels = glob.glob("*.whl")
         if len(wheels) == 0:
             print("No wheels found.")
-            print("Invalid Directory.")
+            print("Invalid Directory: " + whlsource)
             continue
         if len(wheels) > 1:
             print("Multiple wheels found!")
