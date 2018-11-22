@@ -61,7 +61,7 @@ Mango has a set way of working. Here's how to use it.
 ### IF USING TERMINAL INPUT (IN DEVELOPMENT)
 1: Structure your command like this:
 ```
-$~/mango.py <function [1/2]> <directory containing wheel> <directory containing code> <verbose [True/False]>
+$~/python3 mango.py <function [1/2]> <directory containing wheel> <directory containing code> <verbose [True/False]>
 ```
 In the function section, use either 1 for a wheel unpack or 2 for code preperation. If everything is entered correctly, Mango _should_ finish the entire job automatically. Keep in mind this is in heavy development, so Mango may fail at points, or complete the job but not as entirely expected. Report issues on Github if you find any.
 
