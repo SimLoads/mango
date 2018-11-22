@@ -9,6 +9,10 @@ A Python module localizer, allowing for packages to be installed without the nee
 
 ## Current News:
 
+11/22/18
+
+Hello! I'm back to developing. It's been a busy couple of weeks and I haven't really found the time nor the motivation to code much into mango, but now I'm back, and there's plenty of work to be done. Will be implementing small changes and fixes for now until I can start work on the big stuff, like adding to $PATH, mangoscripts and python script launching. More to come!
+
 10/31/18
 
 Adding linux support as we speak. I mean, making linux work. It works to some extent on Ubuntu Trusty, currently patching all the problems I can with Debian, which should theoratically iron out the bugs in Ubuntu too. More to come.
