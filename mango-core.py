@@ -1,5 +1,5 @@
-###MANGO-CORE-0.0.2.4###
-ver = '1021180076'
+###MANGO-CORE-0.0.2.6###
+ver = '1121180081'
 def core_test():
     print("Mango Core Response Successful.")
 def core_unzip(linux,verbose,termpath):
@@ -343,6 +343,9 @@ def core_selftest(linux):
         core_mod_query = core_content.splitlines()
         core.close()
     if ("'##MOD##'") in core_mod_query[0]:
+        print("Core self test disabled.")
+        return()
+    if ("##MOD##") in core_mod_query[0]:
         print("Core self test disabled.")
         return()
     import urllib.request
