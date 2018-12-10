@@ -6,46 +6,7 @@ A Python module localizer, allowing for packages to be installed without the nee
 ### Mango is still in heavy development, and while many of the features are in place in the code, they may not actually work.
 ### Please bear with me, I'm working to fix all of the issues you may have with Mango.
 
-
-## Current News:
-
-12/10/18
-
-Finally, mangoconfig has a use! Still working on allowing changes within Mango, but just wanted to get this update out so mangoconfig has a use. Very early alpha, allow me some time to improve it.
-
-11/22/18
-
-Hello! I'm back to developing. It's been a busy couple of weeks and I haven't really found the time nor the motivation to code much into mango, but now I'm back, and there's plenty of work to be done. Will be implementing small changes and fixes for now until I can start work on the big stuff, like adding to $PATH, mangoscripts and python script launching. More to come!
-
-10/31/18
-
-Adding linux support as we speak. I mean, making linux work. It works to some extent on Ubuntu Trusty, currently patching all the problems I can with Debian, which should theoratically iron out the bugs in Ubuntu too. More to come.
-
-++ 2 hours
-
-Linux updates have been pushed, they all work fine, theoratically. I haven't had a chance to test on Windows yet, so hopefully I haven't made mango unusable on Windows while allowing Linux to work. Cross os support is difficult, cut me some slack
-
-10/21/18
-
-Today I discovered how bad mangocore actually is at doing it's job. Sure, it does it, but it's trash. Huge overhaul has been made, hopefully it helps fix a few errors with directory changes. Also I think it reduces the size of the file a bit but don't quote me on that one.
-
-Also I added a little thing to the append function that prints "Modified with Mango" when you start any file that has been modified. Plug myself much. That'll be something you can change with the configuration file, when I get around to making that a reality. 
-
-10/18/18
-
-Hello all, still working on mango, I just have some schoolwork to complete for now, so updates may slow slightly. Feel free to dump any issues because I'll get right on them if any pop up, but general updates may be a little slower now :)
-
-10/16/18
-
-Why does this repository have over 2,000,000 additions and deletions, you might be asking? That is down to the fact that I accidentally pushed my entire working directory to github, which included every file in Mango ever made, everything that PyGame comes with like 3 times over, and Pycryptodomex countless times. I then had to hurridly delete all of these, so that accounted for just over 4,000,000 total changes. Oops.
-
-10/15/18
-
-Recent testing has proved that Mango doesn't really work with Python 3.4 and most likely below. This is caused by some problems with directory variables, and they're being worked on. 
-
-Direct terminal input is now available! See below for correct usage.
-
-Beware of entering incorrect directories - Mango is now configured to delete targets much more agressively. While it shouldn't affect any of your files, be warned that anything in _any_ output_temp or output_final will be completely removed. 
+## See the wiki for updates and news.
 
 ## Using Mango
 Mango has a set way of working. Here's how to use it.
