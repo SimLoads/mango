@@ -51,27 +51,58 @@ if not int(run_var) < 3:
     exit()
 title='''
   __  __                         
- |  \/  |Development 1031180081
+ |  \/  |Development 1210180086
  | \  / | __ _ _ __   __ _  ___  
  | |\/| |/ _` | '_ \ / _` |/ _ \ 
  | |  | | (_| | | | | (_| | (_) |
  |_|  |_|\__,_|_| |_|\__, |\___/
-  ______________________/ | V.2
+  ______________________/ | V.3
  |________________________| BET
 '''
-def clrslo():
+def clrslo(titlePrint):
     input()
     import platform
     import os
     if not "Windows" in (platform.platform()):
         os.system("clear")
         os.system("printf '\e[8;34;34t'")
-        print(title)
+        if titlePrint == True:
+            print(title)
     else:
         os.system("cls")
         os.system("@mode con cols=34 lines=34")
-        print(title)
-print("Clear function prepared.")
+        if titlePrint == True:
+            print(title)
+try:
+    optionsDict = {}
+    with open('mgsc.conf', 'r') as conf:
+        set = conf.read()
+        indOptions = set.split('|')
+    del indOptions[0]
+    for number,letter in enumerate(indOptions):
+        if str(0) in letter:
+            optionsDict["set{0}".format(number)]= False
+        else:
+            optionsDict["set{0}".format(number)]= True
+#pauseAtNextInstruction = optionsDict.get('set0')
+#autoSelectFirstFile = optionsDict.get('set1')
+#printTitle = optionsDict.get('set2')
+#printCoreSelfTestSimilarity = optionsDict.get('set3')
+except:
+    optionsDict = {
+    'set0': False,
+    'set1': False,
+    'set2': True,
+    'set3': False
+    }
+if (optionsDict.get('set2')) == True:
+    titlePrint = True
+else:
+    titlePrint = False
+if (optionsDict.get('set3')) == True:
+    corePrint = True
+else:
+    corePrint = False
 print("Performing core test...")
 try:
     sys.path.insert(0, 'mangotools')
@@ -93,10 +124,10 @@ if "Windows" in platform.platform():
     linux = False
 else:
     linux = True
-mangocore.core_selftest(linux)
+mangocore.core_selftest(linux,corePrint)
 os.chdir('..')
 if term == False:
-    clrslo()
+    clrslo(titlePrint)
 menu = True
 try:
     y = str(run_var)
@@ -117,7 +148,8 @@ if menu == True:
     print("1} Unpack .whl file")
     print("2} Prepare code")
     print("3} Create MangoScript")
-    print("4} Exit")
+    print("4} Mango settings")
+    print("9} Exit")
     mch = input("")
 if mch == "1":
     try:
@@ -275,5 +307,12 @@ if mch == "2":
     os.chdir(cu_dr)
     verbose = False
     mangocore.core_codeprepare(codedir,verbose,linux,source)
+if mch == "4":
+    print("Your current Mango settings are:")
+    raw = False
+    mangoconfig.config_call(raw)
+    setChanges = input("Make changes? [y/n]")
+    if (setChanges.lower()) == "y":
+        mangoconfig.config_edit()
 else:
     exit()
