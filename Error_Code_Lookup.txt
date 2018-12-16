@@ -44,6 +44,8 @@ MANGO
  - Failed to import mangotools - There was a syntax error in one of the tools. If you've been editing a tool, try resetting it.
 [0aFi]
  - Failed to import mangotools - One of the tools doesn't exist. Try reinstalling Mango.
+[0aMm]
+ - Failed to import mangotools - The directory 'mangotools' is missing. Try reinstalling mango.
 [0aUe]
  - Failed to import mangotools - An unspecified error has occured during import. Try reinstalling Mango.
 [1aFc]
