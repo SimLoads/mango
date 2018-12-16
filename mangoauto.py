@@ -1,4 +1,4 @@
-###MANGO-AUTO-0.0.2.6####
+###MANGO-AUTO-0.0.3.0####
 import os
 import sys
 import time
@@ -51,7 +51,7 @@ if not int(run_var) < 3:
     exit()
 title='''
   __  __                         
- |  \/  |Development 1210180086
+ |  \/  |Development 1216180091
  | \  / | __ _ _ __   __ _  ___  
  | |\/| |/ _` | '_ \ / _` |/ _ \ 
  | |  | | (_| | | | | (_| | (_) |
@@ -105,19 +105,25 @@ else:
     corePrint = False
 print("Performing core test...")
 try:
-    sys.path.insert(0, 'mangotools')
-    os.chdir('mangotools')
+    if os.path.exists('mangotools'):
+        sys.path.insert(0, 'mangotools')
+        os.chdir('mangotools')
+    else:
+        print("Failed to import mangotools [0aMm]")
+        print("Ensure mango was installed properly.")
+        input()
+        exit()
     from mangotools import mangoconfig
     from mangotools import mangocore
 except SyntaxError:
     print("Failed to import mangotools [0aFs]")
     print("Ensure no tools have been edited incorrectly.")
-    time.sleep(1)
+    input()
     exit()
 except ImportError:
     print("Failed to import mangotools [0aFi]")
     print("Ensure mango was installed properly.")
-    time.sleep(1)
+    input()
     exit()
 global linux
 if "Windows" in platform.platform():
