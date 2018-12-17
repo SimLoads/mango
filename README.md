@@ -11,17 +11,16 @@ A Python module localizer, allowing for packages to be installed without the nee
 ## Using Mango
 Mango has a set way of working. Here's how to use it.
 
+First, install mango using mango-installer.py (*DON'T TRY TO INSTALL MANUALLY. IT WON'T WORK.*). The installer will do all the work for you, and ensure all the tools work together. If you're working on a machine that isn't yours, use Restricted Access Install to ensure Mango will work. An option is also available to enable modification of the core. 
+
 ### IF USING DEDICATED SCRIPT
-1: Install mango using mango-installer.py (*DON'T TRY TO INSTALL MANUALLY. IT WON'T WORK.*). The installer will do all the work for you, and ensure all the tools work together. If you're working on a machine that isn't yours, use Restricted Access Install to ensure Mango will work. An option is also available to enable modification of the core. 
+1: Launch mango.py and choose "Unpack .whl file". First, enter the directory of the wheel. If there is multiple wheels, Mango will prompt you to choose one. This will create a temporary folder with the unpacked wheel. 
 
 
-2: Launch mango.py and choose "Unpack .whl file". First, enter the directory of the wheel. If there is multiple wheels, Mango will prompt you to choose one. This will create a temporary folder with the unpacked wheel. 
+2: Mango will then ask for another directory. Enter the directory containing the python file you want to append. In the target directory, you should now see a folder with the wheel name and a text file called "pkgs*N*.mgs". If you skip this step, Mango will most likely run into a fair few issues when trying to append your python file later on.
 
 
-3: Mango will then ask for another directory. Enter the directory containing the python file you want to append. In the target directory, you should now see a folder with the wheel name and a text file called "pkgs*N*.mgs". If you skip this step, Mango will most likely run into a fair few issues when trying to append your python file later on.
-
-
-4: Mango will now append the python file in the chosen directory with a string that imports the wheel file locally, all without the need for pip. If there are multiple python files, Mango will prompt you to choose one. The procedure is now finished. If you need to append multiple python files, run mango.py again and choose "Prepare code". Enter the same directory at the prompt and choose another python file to append.
+3: Mango will now append the python file in the chosen directory with a string that imports the wheel file locally, all without the need for pip. If there are multiple python files, Mango will prompt you to choose one. The procedure is now finished. If you need to append multiple python files, run mango.py again and choose "Prepare code". Enter the same directory at the prompt and choose another python file to append.
 
 ### IF USING TERMINAL INPUT (IN DEVELOPMENT)
 1: Structure your command like this:
