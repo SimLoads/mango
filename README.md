@@ -55,10 +55,10 @@ Great, now your code knows where to look. However, it's  _not_ looking for .whl 
 In essence, Mango automates the process of local module installation, and allows modules to be used without the need for PIP. Mango can also launch your Python scripts for you, and keep all their files and tangents organized in one neat folder. 
 
 # Cross OS Support
-Mango is able to run natively on any Python 3.x version on any operating system. Just download the installer and run it on either Windows, MacOSX or (probably any) Linux distribution (I personally use Debian for developing so I would assume thats the most stable release) and Mango will do the rest of the work for you. 
+Mango is able to run natively on any Python 3.x version on any operating system. Just download the installer and run it on either Windows, MacOSX or (probably any) Linux distribution (I personally use Debian for developing so I would assume Mango is most stable on it) and Mango will do the rest of the work for you. 
 
 # Powerful Flexibility
-Mango was designed with every user in mind. As a result, there is a Restricted Access Install mode, which subverts the normal procedures Mango goes through when installing. While this is still in development, as is most of the stuff around Mango, it allows Mango to download necessary files with less risk of permission errors. Mango also uses a self checking system on the core, to prevent changes being made to the core. This is, of course, available to be disabled, but it is there to stop damaging changes being made.
+Mango was designed with every user in mind. As a result, there is a Restricted Access Install mode, which edits the normal procedures Mango goes through when installing. While this is still in development, it allows Mango to download necessary files with less risk of permission errors. Mango also uses a self checking system on the core, to prevent changes being made to the core. This can be disabled, but it is there to stop damaging changes being made.
 
 # Less Obscure Errors
 If Mango ever encounters an issue, there is most likely a function to catch it. If the code hits a snag, it'll pause for you and give you and error code for later. I'm still working on indexing all of them, so if you keep hitting one, don't wait around for a complete index, create an issue and I'll get right on it.
