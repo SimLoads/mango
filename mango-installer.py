@@ -1,14 +1,14 @@
-###MANGO-INSTALLER-0.0.0.8###
+###MANGO-INSTALLER-0.0.1.0###
 '''
 '''
 title='''
   __  __                         
- |  \/  |Development 1031180041              
+ |  \/  |Development 0123190046              
  | \  / | __ _ _ __   __ _  ___  
  | |\/| |/ _` | '_ \ / _` |/ _ \ 
  | |  | | (_| | | | | (_| | (_) |
  |_|  |_|\__,_|_| |_|\__, |\___/
-  ______________________/ | V.2
+  ______________________/ | V.3
  |________________________| BET
 '''
 '''
@@ -169,7 +169,7 @@ def setup(use_title,reinstall,coremod,rai):
             print("Failed to connect.")
             time.sleep(1)
             exit()
-        with open('mangoconfig.py', 'w') as config:
+        with open('mangoconfig.py', 'w', newline='') as config:
             config.write(master_C)
             config.close()
         print("Created mangoconfig.py")
