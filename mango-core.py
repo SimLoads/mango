@@ -1,12 +1,14 @@
-'##MOD##'
-###MANGO-CORE-0.0.2.8###
-ver = '1210180096'
+###MANGO-CORE-0.0.3.0###
+ver = '0218190101'
 def core_test():
     print("Mango Core Response Successful.")
 def core_unzip(linux,verbose,termpath):
     # Yes I know, I could've used a function for the failed import thing, but no.
     # Needlessly complex code makes it harder to clone... right?
     import time
+    if verbose == "rmgpSkip":
+        rmgpSS = True
+        verbose = True
     if verbose == "RAI":
         print("Core restricted mode")
         print("Performing functions manually")
@@ -331,6 +333,11 @@ def core_unzip(linux,verbose,termpath):
         if verbose == True:
             print("Moved back out of output_temp")
         print("Finished unzipping.")
+        try:
+            if rmgpSS:
+                return("Press any key to continue")
+        except:
+            pass
     else:
         print("Unzip failed [0cNf]. Please try again.")
         time.sleep(1)
@@ -507,3 +514,169 @@ def core_codeprepare(codedir,verbose,linux,source):
             pass
     except:
         pass
+def core_sandbox():
+    import os
+    import glob
+    import shutil
+    import urllib.request
+    import sys
+    copyList = []
+    while True:
+        print("")
+        tools = os.getcwd()
+        sandName = input("Enter name for new sandbox: ")
+        if len(sandName) == 0:
+            print("Name cannot be blank!")
+            continue
+        print("(Enter nothing for current directory)")
+        dirToCreate = input("Enter location of new sandbox: ")
+        if len(dirToCreate) == 0:
+            print("Defaulting to current directory.")
+            dirToCreate = os.getcwd()
+        elif not os.path.isdir(dirToCreate):
+            print("Invalid Directory!")
+            print("Defaulting to current directory.")
+            dirToCreate = os.getcwd()
+        os.chdir(dirToCreate)
+        if not os.path.exists(sandName):
+            os.mkdir(sandName)
+            os.chdir(sandName)
+            break 
+        else:
+            print("A sandbox with this name already exists.")
+            continue
+    while True:
+        dirCode = input("Enter absolute directory of code: ")
+        if not os.path.isdir(dirCode):
+            print("Invalid Directory!")
+            continue
+        crDir = os.getcwd()
+        os.chdir(dirCode)
+        snbxCodeTest = glob.glob("*.py")
+        if len(snbxCodeTest) == 0:
+            print("No python files in directory!")
+            continue
+        if len(snbxCodeTest) > 1:
+            print("Multiple python files found!")
+            copyAll = input("Copy all? [y/n]").lower()
+            if copyAll == "y":
+                for number,letter in enumerate(snbxCodeTest):
+                    copyList.append(letter)
+            else:
+                print("Choose a file to copy...")
+                for number,letter in enumerate(snbxCodeTest):
+                    print(number, ">", letter)
+                while True:
+                    copyChoice = input("Choose file to copy: ")
+                    try:
+                        copyList.append(snbxCodeTest[int(copyChoice)])
+                        break
+                    except:
+                        print("Invalid Choice!")
+                        continue
+        if len(snbxCodeTest) == 1:
+            copyList.append(snbxCodeTest[0])
+        print("Copying files to sandbox...")
+        while True:
+            if(len(copyList) > 1):
+                for number,letter in enumerate(copyList):
+                    print(letter)
+                    shutil.copy2(letter, crDir)
+                break
+            if(len(copyList) == 1):
+                shutil.copy2(copyList[0], crDir)
+                break
+            else:
+                print("Fatal Error.")
+                input()
+                exit()
+        print("Files copied to sandbox.")
+        os.chdir(crDir)
+        enc = input("Encrypt sandbox? [y/n] ").lower()
+        if enc == "y":
+            os.chdir(tools)
+            try:
+                os.chdir('mangotools')
+            except:
+                print("Fatal Error.")
+                input()
+                exit()
+            try:
+                os.chdir('rmgp')
+            except:
+                print("Mango dependancies not found!")
+                print("Creating...")
+                os.mkdir('rmgp')
+                os.chdir('rmgp')
+            try:
+                sys.path.insert(0, 'Cryptodome')
+                import Cryptodome
+            except:
+                print("Sandbox Encryption requires pycryptodomex!")
+                if not os.path.exists("pycroTemp.whl"):
+                    print("Downloading Pacakge...")
+                    update = urllib.request.Request('https://files.pythonhosted.org/packages/74/85/f8e54ad879a881c5f4d6befffaae8263a28b56256b8c5dd47f4486de220e/pycryptodomex-3.7.3-cp37-cp37m-win_amd64.whl')
+                    response = urllib.request.urlopen(update)
+                    newcode = response.read()
+                    with open('pycroTemp.whl', 'wb') as pyctemp:
+                        pyctemp.write(newcode)
+                    print("Downloaded pycryptodomex...")
+                else:
+                    print("Package already exists")
+                print("Installing with Mango...")
+                if not os.path.exists("Cryptodome"):
+                    rmgp = os.getcwd()
+                    os.chdir('..')
+                    os.chdir('..')
+                    try:
+                        core_unzip(False, "rmgpSkip", rmgp)
+                    except:
+                        print("Fatal Error")
+                        input()
+                        exit()
+                    print(os.getcwd())
+                    try:
+                        os.chdir('output_temp')
+                    except:
+                        print("Fatal Error")
+                        input()
+                        exit()
+                    in_output = glob.glob("*")
+                    if "dist-info" in in_output[0]:
+                        name = in_output[1]
+                    else:
+                        name = in_output[0]
+                    print("Found package: " + name)
+                    os.chdir(name)
+                    crypDir = os.getcwd()
+                    os.chdir(rmgp)
+                    try:
+                        shutil.copytree(crypDir, name)
+                    except:
+                        print("Fatal Error")
+                        input()
+                        exit()
+                    print("Pycryptodome Install Complete.")
+                else:
+                    print("File already exists")
+                print("Cleaning Up...")
+                if os.path.exists("pycroTemp.whl"):
+                    os.remove("pycroTemp.whl")
+                os.chdir('..')
+                if os.path.exists("pycroTemp.whl"):
+                    shutil.rmtree("pycroTemp.whl")
+                if os.path.exists("output_temp"):
+                    shutil.rmtree("output_temp", ignore_errors=True)
+                os.chdir('rmgp')
+                try:
+                    sys.path.insert(0, 'Cryptodome')
+                    import Cryptodome
+                    print("Imported Cryptodome.")
+                except:
+                    print("Fatal Import Error.")
+                    input()
+                    exit()
+            print("Imported Cryptodome.")
+            print("Sandbox Encryption In Development.")
+        print("Sandbox Created.")
+        return()
