@@ -1,4 +1,4 @@
-###MANGO-AUTO-0.0.3.2###
+###MANGO-AUTO-0.0.3.4###
 import os
 import sys
 import time
@@ -51,7 +51,7 @@ if not int(run_var) < 3:
     exit()
 title='''
   __  __                         
- |  \/  |Development 0123190096
+ |  \/  |Development 0218190101
  | \  / | __ _ _ __   __ _  ___  
  | |\/| |/ _` | '_ \ / _` |/ _ \ 
  | |  | | (_| | | | | (_| | (_) |
@@ -314,35 +314,7 @@ if mch == "2":
     verbose = False
     mangocore.core_codeprepare(codedir,verbose,linux,source)
 if mch == "3":
-    print("In development.")
-    input()
-    exit()
-    while True:
-        print("")
-        sandName = input("Enter name for new sandbox: ")
-        if len(sandName) == 0:
-            print("Name cannot be blank!")
-            continue
-        print("(Enter nothing for current directory)")
-        dirToCreate = input("Enter location of new sandbox: ")
-        if len(dirToCreate) == 0:
-            print("Defaulting to current directory.")
-            dirToCreate = os.getcwd()
-        elif not os.path.isdir(dirToCreate):
-            print("Invalid Directory!")
-            print("Defaulting to current directory.")
-            dirToCreate = os.getcwd()
-        if not os.path.exists(sandName):
-            os.mkdir(sandName)
-        else:
-            print("A sandbox with this name already exists.")
-    while True:
-        dirCode = input("Enter absolute directory of code: ")
-        if not os.path.isdir(dirCode):
-            print("Invalid Directory!")
-            continue
-        import subprocess
-        subprocess.call(["chmod", "a-rw", ])
+    mangocore.core_sandbox()
 if mch == "4":
     print("Your current Mango settings are:")
     raw = False
